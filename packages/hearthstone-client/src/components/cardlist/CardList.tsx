@@ -1,8 +1,9 @@
 import React from 'react';
-import { List, Avatar, Pagination, Input } from 'antd';
+import { List, Modal, Pagination, Input } from 'antd';
 
 import { getAllCards, getCard } from '../../utils/getCards';
-import { Cards, Card } from '../../types';
+import { Cards, HeartStoneCard } from '../../types';
+import ViewCardModal from './CardModal';
 
 const { Search } = Input;
 
@@ -15,6 +16,8 @@ const pageConfig = {
 
 const CardList: React.FC = () => {
     const [cards, setCards] = React.useState<Cards | null>(null);
+    const [showCard, setShowCard] = React.useState<boolean>(false);
+    const [currentCard, setCurrentCard] = React.useState<HeartStoneCard | null>(null);
 
     const getCards = React.useCallback(async (params) => {
         const result = await getAllCards(params);
@@ -41,6 +44,11 @@ const CardList: React.FC = () => {
         getCard(query);
     }
 
+    const onShowCard = (card: HeartStoneCard) => {
+        setCurrentCard(card)
+        setShowCard(true);
+    }
+
     return (
         cards ?
             <div>
@@ -53,11 +61,12 @@ const CardList: React.FC = () => {
                     grid={{ gutter: 16, column: 4 }}
                     size="large"
                     dataSource={cards.cards}
-                    renderItem={(item: Card) => (
+                    renderItem={(card: HeartStoneCard) => (
                         <List.Item
-                            key={item.id}
+                            key={card.id}
+                            onClick={() => onShowCard(card)}
                         >
-                            <img src={item.image} />
+                            <img src={card.image} />
                         </List.Item>
                     )}
                 />
@@ -67,6 +76,36 @@ const CardList: React.FC = () => {
                     onChange={onChange}
                     onShowSizeChange={onShowSizeChange}
                 />
+                {currentCard ?
+                    <Modal
+                        visible={showCard}
+                        centered
+                        onOk={() => setShowCard(false)}
+                        onCancel={() => setShowCard(false)}
+                    >
+                        <ViewCardModal
+                            artistName={currentCard.artistName}
+                            attack={currentCard.attack}
+                            cardSetId={currentCard.cardSetId}
+                            cardTypeId={currentCard.cardTypeId}
+                            classId={currentCard.classId}
+                            collectible={currentCard.collectible}
+                            cropImage={currentCard.cropImage}
+                            flavorText={currentCard.flavorText}
+                            health={currentCard.health}
+                            id={currentCard.id}
+                            image={currentCard.image}
+                            imageGold={currentCard.imageGold}
+                            keywordIds={currentCard.keywordIds}
+                            manaCost={currentCard.manaCost}
+                            minionTypeId={currentCard.minionTypeId}
+                            multiClassIds={currentCard.multiClassIds}
+                            name={currentCard.name}
+                            rarityId={currentCard.rarityId}
+                            slug={currentCard.slug}
+                            text={currentCard.text}
+                        ></ViewCardModal>
+                    </Modal> : null}
             </div>
             : null
     );

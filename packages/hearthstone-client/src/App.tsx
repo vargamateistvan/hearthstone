@@ -2,7 +2,7 @@ import React from 'react';
 import { Layout, Menu, Breadcrumb } from 'antd';
 import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/icons';
 
-import smallLogo from './images/small_logo.png';
+// import smallLogo from './images/small_logo.png';
 import './App.css';
 
 import CardList from './components/cardlist/CardList';
@@ -15,7 +15,7 @@ const App: React.FC = () => {
     <Layout>
       <Header className="header">
         <div className="logo" >
-          <img src={smallLogo} width="32" height="32" />
+          {/* <img src={smallLogo} width="32" height="32" /> */}
         </div>
         {/* <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']}>
           <Menu.Item key="1">nav 1</Menu.Item>

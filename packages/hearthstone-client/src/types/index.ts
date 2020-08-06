@@ -1,11 +1,11 @@
 export interface Cards {
     cardCount: number;
-    cards: Card[];
+    cards: HeartStoneCard[];
     page: number;
     pageCount: number;
 }
 
-export interface Card {
+export interface HeartStoneCard {
     artistName: string;
     attack: number;
     cardSetId: number;
