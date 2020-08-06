@@ -28,7 +28,7 @@ const CardList: React.FC = () => {
 
     React.useEffect(() => {
         getCards(pageConfig)
-    }, [])
+    }, [getCards])
 
     const onChange = (page: number) => {
         pageConfig.pageNumber = page;
@@ -66,7 +66,7 @@ const CardList: React.FC = () => {
                             key={card.id}
                             onClick={() => onShowCard(card)}
                         >
-                            <img src={card.image} />
+                            <img alt={card.name} src={card.image} />
                         </List.Item>
                     )}
                 />
