@@ -2,6 +2,9 @@
   "name": "hearthstone",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "12.x"
+  },
   "dependencies": {
     "@types/jest": "24.0.18",
     "@types/node": "12.7.2",
