@@ -1,20 +1,28 @@
 import React from 'react';
-import { List, Modal, Pagination, Input } from 'antd';
+import { List, Modal, Pagination, Input, Select, Typography } from 'antd';
 
 import { getAllCards, getCard } from '../../utils/getCards';
-import { Cards, HeartStoneCard } from '../../types';
+import { Cards, HeartStoneCard, OptionalParams, ListConfig } from '../../types';
 import ViewCardModal from './CardModal';
 
 const { Search } = Input;
+const { Option } = Select;
+const { Text } = Typography;
+
 
 const pageConfig = {
     pageNumber: 1,
     pageSize: 16,
     sort: 'name',
-    order: 'desc'
+    order: 'asc',
+    optionalParams: {
+        cardClass: 'all',
+        cardSet: ''
+    }
 }
 
-const CardList: React.FC = () => {
+const CardList: React.FC<OptionalParams> = ({ cardClass, cardSet }) => {
+    const [listConfig, setListConfig] = React.useState<ListConfig>(pageConfig);
     const [cards, setCards] = React.useState<Cards | null>(null);
     const [showCard, setShowCard] = React.useState<boolean>(false);
     const [currentCard, setCurrentCard] = React.useState<HeartStoneCard | null>(null);
@@ -24,20 +32,31 @@ const CardList: React.FC = () => {
         if (result) {
             setCards(result);
         }
-    }, [])
+    }, []);
 
-    React.useEffect(() => {
-        getCards(pageConfig)
-    }, [getCards])
-
-    const onChange = (page: number) => {
-        pageConfig.pageNumber = page;
-        getCards(pageConfig)
+    if (cardClass !== pageConfig.optionalParams.cardClass || cardSet !== pageConfig.optionalParams.cardSet) {
+        pageConfig.optionalParams.cardClass = cardClass;
+        pageConfig.optionalParams.cardSet = cardSet;
+        setListConfig(pageConfig);
+        getCards(listConfig);
     }
 
-    const onShowSizeChange = (size: number) => {
-        pageConfig.pageSize = size;
-        getCards(pageConfig)
+    React.useEffect(() => {
+        setListConfig(pageConfig);
+        getCards(listConfig);
+    }, [getCards, listConfig, pageConfig])
+
+    const onSortSelectChange = (value: string) => {
+        pageConfig.order = value;
+        setListConfig(pageConfig);
+        getCards(listConfig);
+    }
+
+    const onPaginationChange = (page: number, pageSize: number = 16) => {
+        pageConfig.pageNumber = page;
+        pageConfig.pageSize = pageSize;
+        setListConfig(pageConfig);
+        getCards(listConfig)
     }
 
     const onSearch = (query: string) => {
@@ -55,8 +74,17 @@ const CardList: React.FC = () => {
                 <Search
                     placeholder="Enter a card name"
                     onSearch={onSearch}
-                    size="large"
+                    size="middle"
                 ></Search>
+                <Text>Sort by</Text>
+                <Select
+                    defaultValue="asc"
+                    size="middle"
+                    onChange={onSortSelectChange}
+                >
+                    <Option value="asc">Card name: A - Z</Option>
+                    <Option value="desc">Card name: Z - A</Option>
+                </Select>
                 <List
                     grid={{ gutter: 16, column: 4 }}
                     size="large"
@@ -73,8 +101,9 @@ const CardList: React.FC = () => {
                 <Pagination
                     defaultCurrent={pageConfig.pageNumber}
                     total={cards.cardCount}
-                    onChange={onChange}
-                    onShowSizeChange={onShowSizeChange}
+                    onChange={onPaginationChange}
+                    pageSize={16}
+                    pageSizeOptions={['16', '32', '64']}
                 />
                 {currentCard ?
                     <Modal

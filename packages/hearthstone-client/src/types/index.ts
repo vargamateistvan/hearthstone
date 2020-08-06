@@ -27,3 +27,16 @@ export interface HeartStoneCard {
     slug: string;
     text: string;
 }
+
+export interface ListConfig {
+    pageNumber: number;
+    pageSize: number;
+    sort: string;
+    order: string;
+    optionalParams: OptionalParams;
+}
+
+export interface OptionalParams {
+    cardClass: string;
+    cardSet: string;
+}

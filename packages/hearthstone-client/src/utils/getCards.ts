@@ -1,6 +1,6 @@
 var base64 = require('base-64');
 
-const url = `https://us.api.blizzard.com/hearthstone/`;
+const apiUrl = `https://us.api.blizzard.com/hearthstone/`;
 let accessToken;
 let tokenExpirationTime;
 let requestedTokenTime;
@@ -30,12 +30,21 @@ const isTokenVaild = () => {
     return expiredTime < now
 }
 
-export const getAllCards = async ({ pageNumber, pageSize, sort, order }) => {
+export const getAllCards = async ({ pageNumber, pageSize, sort, order, optionalParams = { cardClass: null, cardSet: null } }) => {
     if (isTokenVaild()) {
         await getAccessToken();
     }
 
-    const response = await fetch(`${url}/cards?locale=en_US&page=1&page=${pageNumber}&pageSize=${pageSize}&sort=${sort}&order=${order}&access_token=${accessToken}`, {
+    let url = `${apiUrl}/cards?locale=en_US&page=${pageNumber}&pageSize=${pageSize}&sort=${sort}&order=${order}&access_token=${accessToken}`;
+    if (optionalParams.cardClass) {
+        url += `&class=${optionalParams.cardClass}`;
+    }
+
+    if (optionalParams.cardSet) {
+        url += `&set=${optionalParams.cardSet}`;
+    }
+
+    const response = await fetch(url, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -54,7 +63,7 @@ export const getCard = async (idorslug) => {
 
     const query = idorslug.replace(' ', '-');
 
-    const response = await fetch(`${url}/cards/${query}?locale=en_US&access_token=${accessToken}`, {
+    const response = await fetch(`${apiUrl}/cards/${query}?locale=en_US&access_token=${accessToken}`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
