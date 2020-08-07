@@ -30,7 +30,7 @@ const isTokenVaild = () => {
     return expiredTime < now
 }
 
-export const getAllCards = async ({ pageNumber, pageSize, sort, order, optionalParams = { cardClass: null, cardSet: null } }) => {
+export const getAllCards = async ({ pageNumber, pageSize, sort, order, optionalParams = { cardClass: null, cardSet: null, gameMode: null } }) => {
     if (isTokenVaild()) {
         await getAccessToken();
     }
@@ -42,6 +42,10 @@ export const getAllCards = async ({ pageNumber, pageSize, sort, order, optionalP
 
     if (optionalParams.cardSet) {
         url += `&set=${optionalParams.cardSet}`;
+    }
+
+    if (optionalParams.gameMode) {
+        url += `&gameMode=${optionalParams.gameMode}`;
     }
 
     const response = await fetch(url, {

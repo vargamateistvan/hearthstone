@@ -39,4 +39,10 @@ export interface ListConfig {
 export interface OptionalParams {
     cardClass: string;
     cardSet: string;
+    gameMode: string;
+}
+
+export interface CardListProps {
+    cardSet: string;
+    gameMode: string
 }

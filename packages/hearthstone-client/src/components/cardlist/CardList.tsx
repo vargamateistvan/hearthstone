@@ -1,9 +1,10 @@
 import React from 'react';
-import { List, Modal, Pagination, Input, Select, Typography } from 'antd';
+import { List, Modal, Pagination, Input, Select, Typography, Row, Col, Switch } from 'antd';
 
 import { getAllCards, getCard } from '../../utils/getCards';
-import { Cards, HeartStoneCard, OptionalParams, ListConfig } from '../../types';
+import { Cards, HeartStoneCard, ListConfig, CardListProps } from '../../types/types';
 import ViewCardModal from './CardModal';
+import { CARDCLASSES } from '../../types/enums';
 
 const { Search } = Input;
 const { Option } = Select;
@@ -17,15 +18,17 @@ const pageConfig = {
     order: 'asc',
     optionalParams: {
         cardClass: 'all',
-        cardSet: ''
+        cardSet: '',
+        gameMode: 'constructed'
     }
 }
 
-const CardList: React.FC<OptionalParams> = ({ cardClass, cardSet }) => {
+const CardList: React.FC<CardListProps> = ({ cardSet, gameMode }) => {
     const [listConfig, setListConfig] = React.useState<ListConfig>(pageConfig);
     const [cards, setCards] = React.useState<Cards | null>(null);
     const [showCard, setShowCard] = React.useState<boolean>(false);
     const [currentCard, setCurrentCard] = React.useState<HeartStoneCard | null>(null);
+    const [showGoldsOnly, setShowGoldsOnly] = React.useState<boolean>(false);
 
     const getCards = React.useCallback(async (params) => {
         const result = await getAllCards(params);
@@ -34,9 +37,10 @@ const CardList: React.FC<OptionalParams> = ({ cardClass, cardSet }) => {
         }
     }, []);
 
-    if (cardClass !== pageConfig.optionalParams.cardClass || cardSet !== pageConfig.optionalParams.cardSet) {
-        pageConfig.optionalParams.cardClass = cardClass;
+    if (cardSet !== pageConfig.optionalParams.cardSet
+        || gameMode !== pageConfig.optionalParams.gameMode) {
         pageConfig.optionalParams.cardSet = cardSet;
+        pageConfig.optionalParams.gameMode = gameMode;
         setListConfig(pageConfig);
         getCards(listConfig);
     }
@@ -46,10 +50,22 @@ const CardList: React.FC<OptionalParams> = ({ cardClass, cardSet }) => {
         getCards(listConfig);
     }, [getCards, listConfig, pageConfig])
 
-    const onSortSelectChange = (value: string) => {
-        pageConfig.order = value;
+    const cardClasses = Object.values(CARDCLASSES);
+
+    const onSortSelectChange = (order: string) => {
+        pageConfig.order = order;
         setListConfig(pageConfig);
         getCards(listConfig);
+    }
+
+    const onClassSelectChange = (cardClass: string) => {
+        pageConfig.optionalParams.cardClass = cardClass;
+        setListConfig(pageConfig);
+        getCards(listConfig);
+    }
+
+    const onShowGoldsOnly = (checked: boolean) => {
+        setShowGoldsOnly(checked);
     }
 
     const onPaginationChange = (page: number, pageSize: number = 16) => {
@@ -76,15 +92,38 @@ const CardList: React.FC<OptionalParams> = ({ cardClass, cardSet }) => {
                     onSearch={onSearch}
                     size="middle"
                 ></Search>
-                <Text>Sort by</Text>
-                <Select
-                    defaultValue="asc"
-                    size="middle"
-                    onChange={onSortSelectChange}
-                >
-                    <Option value="asc">Card name: A - Z</Option>
-                    <Option value="desc">Card name: Z - A</Option>
-                </Select>
+                <Row>
+                    <Col span={6}>
+                        <Select
+                            defaultValue="all"
+                            size="large"
+                            onChange={onClassSelectChange}
+                            style={{ width: '250px' }}
+                        >
+                            {cardClasses.map((cardClass: string, index: number) => {
+                                return (
+                                    <Option value={cardClass} key={index} >{cardClass.toUpperCase()}</Option>
+                                )
+                            })}
+                        </Select>
+                    </Col>
+                    <Col span={6}>
+                        {/* <Text>Sort by</Text> */}
+                        <Select
+                            defaultValue="asc"
+                            size="large"
+                            onChange={onSortSelectChange}
+                        >
+                            <Option value="asc">Card name: A - Z</Option>
+                            <Option value="desc">Card name: Z - A</Option>
+                        </Select>
+                    </Col>
+                    <Col span={6}>
+                        <Text>Show golds</Text>
+                        <Switch onChange={onShowGoldsOnly} />
+                    </Col>
+                </Row>
+
                 <List
                     grid={{ gutter: 16, column: 4 }}
                     size="large"
@@ -94,10 +133,11 @@ const CardList: React.FC<OptionalParams> = ({ cardClass, cardSet }) => {
                             key={card.id}
                             onClick={() => onShowCard(card)}
                         >
-                            <img alt={card.name} src={card.image} />
+                            <img alt={card.name} src={showGoldsOnly && card.imageGold ? card.imageGold : card.image} />
                         </List.Item>
                     )}
                 />
+
                 <Pagination
                     defaultCurrent={pageConfig.pageNumber}
                     total={cards.cardCount}
