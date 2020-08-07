@@ -19,7 +19,9 @@ const App: React.FC = () => {
 
   const gameModeChange = (gameMode) => {
     setGameMode(gameMode);
-    setCardSet('');
+    if (gameMode === GAMEMODES.BATTLEGROUNDS) {
+      setCardSet('');
+    }
   }
 
   return (

@@ -63,6 +63,12 @@ const CardList: React.FC<CardListProps> = ({ cardSet, gameMode }) => {
         pageConfig.optionalParams.gameMode = gameMode;
         if (gameMode === GAMEMODES.BATTLEGROUNDS) {
             pageConfig.pageSize = 1000;
+            pageConfig.optionalParams.cardClass = 'all';
+        }
+        if (gameMode === GAMEMODES.STANDARD) {
+            pageConfig.pageSize = 16;
+            pageConfig.optionalParams.cardClass = 'all';
+
         }
         setListConfig(pageConfig);
         getCards(listConfig);
