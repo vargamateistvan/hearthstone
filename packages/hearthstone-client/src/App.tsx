@@ -1,7 +1,7 @@
 import React from 'react';
-import { Layout, Menu, } from 'antd';
+import { Layout, Menu, Col, Row, } from 'antd';
 
-// import smallLogo from './images/small_logo.png';
+import smallLogo from './images/small_logo.png';
 import './App.css';
 
 import CardList from './components/cardlist/CardList';
@@ -27,15 +27,20 @@ const App: React.FC = () => {
   return (
     <Layout>
       <Header className="header">
-        <div className="logo" />
-        {/* <img alt="Small Logo" src={smallLogo} width="32" height="32" /> */}
-        <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['0']}>
-          {gameModes.map((gameMode: string, index: number) => {
-            return (
-              <Menu.Item onClick={() => gameModeChange(gameMode)} key={index}>{gameMode === GAMEMODES.STANDARD ? 'Standard Card' : gameMode.toUpperCase()}</Menu.Item>
-            )
-          })}
-        </Menu>
+        <Row>
+          <Col flex="100px">
+            <img alt="Small Logo" src={smallLogo} width="64" height="64" />
+          </Col>
+          <Col flex="auto">
+            <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['0']}>
+              {gameModes.map((gameMode: string, index: number) => {
+                return (
+                  <Menu.Item onClick={() => gameModeChange(gameMode)} key={index}>{gameMode === GAMEMODES.STANDARD ? 'Standard Card' : gameMode.toUpperCase()}</Menu.Item>
+                )
+              })}
+            </Menu>
+          </Col>
+        </Row>
       </Header>
       <Layout>
         <Sider width={200} className="site-layout-background">

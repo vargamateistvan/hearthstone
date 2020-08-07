@@ -3,14 +3,13 @@ import { List, Modal, Pagination, Input, Select, Typography, Row, Col, Switch } 
 
 import { getAllCards, getCard } from '../../utils/getCards';
 import { Cards, HeartStoneCard, ListConfig, CardListProps } from '../../types/types';
-import ViewCardModal from './CardModal';
 import { CARDCLASSES, GAMEMODES } from '../../types/enums';
+import ViewCardModal from './CardModal';
 import BattlegroundCardList from './BattlegroundCardList';
 
 const { Search } = Input;
 const { Option } = Select;
 const { Text } = Typography;
-
 
 const pageConfig = {
     pageNumber: 1,
