@@ -55,7 +55,7 @@ const CardList: React.FC<CardListProps> = ({ cardSet, gameMode }) => {
                 setBattlegroundsCards(cards);
             }
         }
-    }, []);
+    }, [listConfig.optionalParams.gameMode]);
 
     if (cardSet !== pageConfig.optionalParams.cardSet
         || gameMode !== pageConfig.optionalParams.gameMode) {
@@ -71,7 +71,7 @@ const CardList: React.FC<CardListProps> = ({ cardSet, gameMode }) => {
     React.useEffect(() => {
         setListConfig(pageConfig);
         getCards(listConfig);
-    }, [getCards, listConfig, pageConfig])
+    }, [getCards, listConfig])
 
     const cardClasses = Object.values(CARDCLASSES);
 

@@ -37,20 +37,22 @@ const App: React.FC = () => {
       </Header>
       <Layout>
         <Sider width={200} className="site-layout-background">
-          <Menu
-            mode="inline"
-            defaultOpenKeys={['sub1']}
-            theme="dark"
-            style={{ height: '100%', borderRight: 0 }}
-          >
-            <SubMenu key="sub1" title="Card Sets">
-              {cardSets.map((cardSet: string, index: number) => {
-                return (
-                  <Menu.Item onClick={() => setCardSet(cardSet)} key={index + 1}>{cardSet.toUpperCase()}</Menu.Item>
-                )
-              })}
-            </SubMenu>
-          </Menu>
+          {gameMode === GAMEMODES.STANDARD ?
+            <Menu
+              mode="inline"
+              defaultOpenKeys={['sub1']}
+              theme="dark"
+              style={{ height: '100%', borderRight: 0 }}
+            >
+              <SubMenu key="sub1" title="Card Sets">
+                {cardSets.map((cardSet: string, index: number) => {
+                  return (
+                    <Menu.Item onClick={() => setCardSet(cardSet)} key={index + 1}>{cardSet.toUpperCase()}</Menu.Item>
+                  )
+                })}
+              </SubMenu>
+            </Menu>
+            : null}
         </Sider>
         <Layout style={{ padding: '0 24px 24px' }}>
           <Content
