@@ -1,7 +1,7 @@
 import React from 'react';
 import { Layout, Menu, } from 'antd';
 
-import smallLogo from './images/small_logo.png';
+// import smallLogo from './images/small_logo.png';
 import './App.css';
 
 import CardList from './components/cardlist/CardList';
@@ -12,7 +12,7 @@ const { Header, Content, Sider } = Layout;
 
 const App: React.FC = () => {
   const [cardSet, setCardSet] = React.useState<string | ''>('');
-  const [gameMode, setGameMode] = React.useState<string | ''>('');
+  const [gameMode, setGameMode] = React.useState<string | ''>('constructed');
 
   const cardSets = Object.values(CARDSETS);
   const gameModes = Object.values(GAMEMODES);

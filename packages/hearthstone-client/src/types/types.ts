@@ -26,6 +26,15 @@ export interface HeartStoneCard {
     rarityId: number;
     slug: string;
     text: string;
+    battlegrounds: BattleGrounds;
+}
+
+interface BattleGrounds {
+    tier: number;
+    image: string;
+    imageGold: string;
+    hero: boolean;
+    upgradeId: number;
 }
 
 export interface ListConfig {
@@ -44,5 +53,10 @@ export interface OptionalParams {
 
 export interface CardListProps {
     cardSet: string;
-    gameMode: string
+    gameMode: string;
+}
+
+export interface BattleGroundsCardListProps {
+    heroes: HeartStoneCard[];
+    cards: HeartStoneCard[];
 }
