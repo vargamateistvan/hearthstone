@@ -1,6 +1,7 @@
 import React from 'react';
 import { Divider, List, Typography } from 'antd';
 import { HeartStoneCard, TierCardListProps } from '../../../types/types';
+import HeartStoneCardItem from '../HeartstoneCard';
 
 const { Title } = Typography;
 
@@ -19,7 +20,11 @@ const TierCardList: React.FC<TierCardListProps> = ({ cards, tier }) => {
                     <List.Item
                         key={card.id}
                     >
-                        <img alt={card.name} src={card.battlegrounds.image} />
+                        <HeartStoneCardItem
+                            card={card}
+                            isBattleGrounds={true}
+                        >
+                        </HeartStoneCardItem>
                     </List.Item>
                 )}
             />

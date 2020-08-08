@@ -69,3 +69,9 @@ export interface TierCardListProps {
     cards: HeartStoneCard[];
     tier: number;
 }
+
+export interface HeartStoneCardProps {
+    card: HeartStoneCard;
+    showGoldsOnly?: boolean;
+    isBattleGrounds?: boolean
+}

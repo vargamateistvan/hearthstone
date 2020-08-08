@@ -2,9 +2,10 @@ import React from 'react';
 import { List, Modal, Pagination, Input, Select, Typography, Row, Col, Switch } from 'antd';
 
 import { getAllCards, getCard } from '../../../utils/getCards';
-import { Cards, HeartStoneCard, ListConfig } from '../../../types/types';
+import { Cards, ListConfig, HeartStoneCard } from '../../../types/types';
 import { CARDCLASSES, CARDSETS } from '../../../types/enums';
 import ViewCardModal from '../CardModal';
+import HeartStoneCardItem from '../HeartstoneCard';
 
 const { Search } = Input;
 const { Option } = Select;
@@ -145,7 +146,11 @@ const StandardCardList: React.FC = () => {
                                 key={card.id}
                                 onClick={() => onShowCard(card)}
                             >
-                                <img alt={card.name} src={showGoldsOnly && card.imageGold ? card.imageGold : card.image} />
+                                <HeartStoneCardItem
+                                    card={card}
+                                    showGoldsOnly={showGoldsOnly}
+                                >
+                                </HeartStoneCardItem>
                             </List.Item>
                         )}
                     />
