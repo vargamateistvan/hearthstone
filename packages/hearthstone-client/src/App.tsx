@@ -4,24 +4,19 @@ import { Layout, Menu, Col, Row, } from 'antd';
 import smallLogo from './images/small_logo.png';
 import './App.css';
 
-import CardList from './components/cardlist/CardList';
-import { CARDSETS, GAMEMODES } from './types/enums';
+import { GAMEMODES } from './types/enums';
+import BattlegroundCardList from './components/cardlists/battlegrounds/BattlegroundCardList';
+import StandardCardList from './components/cardlists/standard/StandardCardList';
 
-const { SubMenu } = Menu;
-const { Header, Content, Sider } = Layout;
+const { Header, Content } = Layout;
 
 const App: React.FC = () => {
-  const [cardSet, setCardSet] = React.useState<string | ''>('');
   const [gameMode, setGameMode] = React.useState<string | ''>('constructed');
 
-  const cardSets = Object.values(CARDSETS);
   const gameModes = Object.values(GAMEMODES);
 
   const gameModeChange = (gameMode) => {
     setGameMode(gameMode);
-    if (gameMode === GAMEMODES.BATTLEGROUNDS) {
-      setCardSet('');
-    }
   }
 
   return (
@@ -42,40 +37,21 @@ const App: React.FC = () => {
           </Col>
         </Row>
       </Header>
-      <Layout>
-        <Sider width={200} className="site-layout-background">
+      <Layout style={{ padding: '0 24px 24px' }}>
+        <Content
+
+          className="site-layout-background"
+          style={{
+            padding: 24,
+            margin: 0,
+            minHeight: 280,
+          }}
+        >
           {gameMode === GAMEMODES.STANDARD ?
-            <Menu
-              mode="inline"
-              defaultOpenKeys={['sub1']}
-              theme="dark"
-              style={{ height: '100%', borderRight: 0 }}
-            >
-              <SubMenu key="sub1" title="Card Sets">
-                {cardSets.map((cardSet: string, index: number) => {
-                  return (
-                    <Menu.Item onClick={() => setCardSet(cardSet)} key={index + 1}>{cardSet.toUpperCase()}</Menu.Item>
-                  )
-                })}
-              </SubMenu>
-            </Menu>
-            : null}
-        </Sider>
-        <Layout style={{ padding: '0 24px 24px' }}>
-          <Content
-            className="site-layout-background"
-            style={{
-              padding: 24,
-              margin: 0,
-              minHeight: 280,
-            }}
-          >
-            <CardList
-              cardSet={cardSet}
-              gameMode={gameMode}
-            ></CardList>
-          </Content>
-        </Layout>
+            <StandardCardList></StandardCardList>
+            : <BattlegroundCardList></BattlegroundCardList>
+          }
+        </Content>
       </Layout>
     </Layout >
   );

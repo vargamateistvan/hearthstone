@@ -1,11 +1,10 @@
 import React from 'react';
 import { List, Modal, Pagination, Input, Select, Typography, Row, Col, Switch } from 'antd';
 
-import { getAllCards, getCard } from '../../utils/getCards';
-import { Cards, HeartStoneCard, ListConfig, CardListProps } from '../../types/types';
-import { CARDCLASSES, GAMEMODES } from '../../types/enums';
-import ViewCardModal from './CardModal';
-import BattlegroundCardList from './BattlegroundCardList';
+import { getAllCards, getCard } from '../../../utils/getCards';
+import { Cards, HeartStoneCard, ListConfig } from '../../../types/types';
+import { CARDCLASSES, CARDSETS } from '../../../types/enums';
+import ViewCardModal from '../CardModal';
 
 const { Search } = Input;
 const { Option } = Select;
@@ -23,11 +22,9 @@ const pageConfig = {
     }
 }
 
-const CardList: React.FC<CardListProps> = ({ cardSet, gameMode }) => {
+const StandardCardList: React.FC = () => {
     const [listConfig, setListConfig] = React.useState<ListConfig>(pageConfig);
     const [cards, setCards] = React.useState<Cards | null>(null);
-    const [battlegroundsHeroes, setBattlegroundsHeroes] = React.useState<HeartStoneCard[] | null>(null)
-    const [battlegroundsCards, setBattlegroundsCards] = React.useState<HeartStoneCard[] | null>(null)
     const [showCard, setShowCard] = React.useState<boolean>(false);
     const [currentCard, setCurrentCard] = React.useState<HeartStoneCard | null>(null);
     const [showGoldsOnly, setShowGoldsOnly] = React.useState<boolean>(false);
@@ -35,43 +32,9 @@ const CardList: React.FC<CardListProps> = ({ cardSet, gameMode }) => {
     const getCards = React.useCallback(async (params) => {
         const result = await getAllCards(params);
         if (result) {
-            if (listConfig.optionalParams.gameMode === GAMEMODES.STANDARD) {
-                setCards(result);
-                setBattlegroundsHeroes(null);
-                setBattlegroundsCards(null)
-            }
-            if (listConfig.optionalParams.gameMode === GAMEMODES.BATTLEGROUNDS) {
-                setCards(null);
-
-                const heroes = result.cards
-                    .filter((card: HeartStoneCard) => card.battlegrounds.hero)
-                    .sort((a: HeartStoneCard, b: HeartStoneCard) => a.name > b.name);
-                setBattlegroundsHeroes(heroes);
-
-                const cards = result.cards
-                    .filter((card: HeartStoneCard) => !card.battlegrounds.hero)
-                    .sort((a: HeartStoneCard, b: HeartStoneCard) => a.name > b.name)
-                setBattlegroundsCards(cards);
-            }
+            setCards(result);
         }
-    }, [listConfig.optionalParams.gameMode]);
-
-    if (cardSet !== pageConfig.optionalParams.cardSet
-        || gameMode !== pageConfig.optionalParams.gameMode) {
-        pageConfig.optionalParams.cardSet = cardSet;
-        pageConfig.optionalParams.gameMode = gameMode;
-        if (gameMode === GAMEMODES.BATTLEGROUNDS) {
-            pageConfig.pageSize = 1000;
-            pageConfig.optionalParams.cardClass = 'all';
-        }
-        if (gameMode === GAMEMODES.STANDARD) {
-            pageConfig.pageSize = 16;
-            pageConfig.optionalParams.cardClass = 'all';
-
-        }
-        setListConfig(pageConfig);
-        getCards(listConfig);
-    }
+    }, []);
 
     React.useEffect(() => {
         setListConfig(pageConfig);
@@ -79,6 +42,7 @@ const CardList: React.FC<CardListProps> = ({ cardSet, gameMode }) => {
     }, [getCards, listConfig])
 
     const cardClasses = Object.values(CARDCLASSES);
+    const cardSets = Object.values(CARDSETS);
 
     const onSortSelectChange = (order: string) => {
         pageConfig.order = order;
@@ -88,6 +52,12 @@ const CardList: React.FC<CardListProps> = ({ cardSet, gameMode }) => {
 
     const onClassSelectChange = (cardClass: string) => {
         pageConfig.optionalParams.cardClass = cardClass;
+        setListConfig(pageConfig);
+        getCards(listConfig);
+    }
+
+    const onSetsSelectChange = (cardSet: string) => {
+        pageConfig.optionalParams.cardSet = cardSet;
         setListConfig(pageConfig);
         getCards(listConfig);
     }
@@ -126,6 +96,20 @@ const CardList: React.FC<CardListProps> = ({ cardSet, gameMode }) => {
                             <Select
                                 defaultValue="all"
                                 size="large"
+                                onChange={onSetsSelectChange}
+                                style={{ width: '250px' }}
+                            >
+                                {cardSets.map((cardSet: string, index: number) => {
+                                    return (
+                                        <Option value={cardSet} key={index + 1}>{cardSet.toUpperCase()}</Option>
+                                    )
+                                })}
+                            </Select>
+                        </Col>
+                        <Col span={6}>
+                            <Select
+                                defaultValue="all"
+                                size="large"
                                 onChange={onClassSelectChange}
                                 style={{ width: '250px' }}
                             >
@@ -144,6 +128,7 @@ const CardList: React.FC<CardListProps> = ({ cardSet, gameMode }) => {
                             >
                                 <Option value="asc">Card name: A - Z</Option>
                                 <Option value="desc">Card name: Z - A</Option>
+                                <Option value="manaCost">Mana cost</Option>
                             </Select>
                         </Col>
                         <Col span={6}>
@@ -173,14 +158,6 @@ const CardList: React.FC<CardListProps> = ({ cardSet, gameMode }) => {
                     />
                 </div>
                 : null}
-
-            {battlegroundsCards && battlegroundsHeroes ?
-                <BattlegroundCardList
-                    heroes={battlegroundsHeroes}
-                    cards={battlegroundsCards}
-                ></BattlegroundCardList>
-                : null
-            }
 
             {currentCard ?
                 <Modal
@@ -217,4 +194,4 @@ const CardList: React.FC<CardListProps> = ({ cardSet, gameMode }) => {
     );
 }
 
-export default CardList;
+export default StandardCardList;

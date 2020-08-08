@@ -13,6 +13,7 @@ export enum CARDCLASSES {
 }
 
 export enum CARDSETS {
+    ALL = 'ALL',
     SCHOLOMANCE_ACADEMY = 'scholomance-academy',
     ASHES_OF_OUTLANDS = 'ashes-of-outlands',
     DESCENT_OF_DRAGONS = 'descent-of-dragons',

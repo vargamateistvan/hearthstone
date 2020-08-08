@@ -60,3 +60,12 @@ export interface BattleGroundsCardListProps {
     heroes: HeartStoneCard[];
     cards: HeartStoneCard[];
 }
+
+export interface HeroesListProps {
+    heroes: HeartStoneCard[];
+}
+
+export interface TierCardListProps {
+    cards: HeartStoneCard[];
+    tier: number;
+}
