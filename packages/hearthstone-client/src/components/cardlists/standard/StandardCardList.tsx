@@ -92,18 +92,19 @@ const StandardCardList: React.FC = () => {
 
     return (
         <div>
-            <Search
-                placeholder="Enter a card name"
-                onSearch={onSearch}
-                size="middle"
-            ></Search>
             {cards ?
                 <div>
                     <Row>
-                        <Col span={6}>
+                        <Col flex={7}>
+                            <Search
+                                placeholder="Enter a card name"
+                                onSearch={onSearch}
+                                allowClear
+                            ></Search>
+                        </Col>
+                        <Col flex={5}>
                             <Select
                                 defaultValue="all"
-                                size="large"
                                 onChange={onSetsSelectChange}
                                 style={{ width: '250px' }}
                             >
@@ -114,10 +115,9 @@ const StandardCardList: React.FC = () => {
                                 })}
                             </Select>
                         </Col>
-                        <Col span={6}>
+                        <Col flex={5}>
                             <Select
                                 defaultValue="all"
-                                size="large"
                                 onChange={onClassSelectChange}
                                 style={{ width: '250px' }}
                             >
@@ -128,10 +128,9 @@ const StandardCardList: React.FC = () => {
                                 })}
                             </Select>
                         </Col>
-                        <Col span={6}>
+                        <Col flex={4}>
                             <Select
                                 defaultValue="asc"
-                                size="large"
                                 onChange={onSortSelectChange}
                             >
                                 <Option value="asc">Card name: A - Z</Option>
@@ -139,7 +138,7 @@ const StandardCardList: React.FC = () => {
                                 <Option value="manaCost">Mana cost</Option>
                             </Select>
                         </Col>
-                        <Col span={6}>
+                        <Col flex={2}>
                             <Text>Show golds</Text>
                             <Switch onChange={onShowGoldsOnly} />
                         </Col>
