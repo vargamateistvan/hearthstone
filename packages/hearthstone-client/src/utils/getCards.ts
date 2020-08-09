@@ -65,9 +65,7 @@ export const getCard = async (idorslug) => {
         await getAccessToken();
     }
 
-    const query = idorslug.replace(' ', '-');
-
-    const response = await fetch(`${apiUrl}/cards/${query}?locale=en_US&access_token=${accessToken}`, {
+    const response = await fetch(`${apiUrl}/cards?locale=en_US&textFilter=${idorslug}&access_token=${accessToken}`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',

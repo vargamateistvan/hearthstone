@@ -37,6 +37,13 @@ const StandardCardList: React.FC = () => {
         }
     }, []);
 
+    const getCardByText = React.useCallback(async (params) => {
+        const result = await getCard(params);
+        if (result) {
+            setCards(result);
+        }
+    }, []);
+
     React.useEffect(() => {
         setListConfig(pageConfig);
         getCards(listConfig);
@@ -75,7 +82,7 @@ const StandardCardList: React.FC = () => {
     }
 
     const onSearch = (query: string) => {
-        getCard(query);
+        getCardByText(query);
     }
 
     const onShowCard = (card: HeartStoneCard) => {

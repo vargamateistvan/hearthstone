@@ -10,6 +10,7 @@ export enum CARDCLASSES {
     SHAMAN = 'shaman',
     WARLOCK = 'warlock',
     WARRIOR = 'warrior',
+    NEUTRAL = 'neutral',
 }
 
 export enum CARDSETS {
