@@ -1,7 +1,7 @@
 import React from 'react';
 import { CardBack, CardBackCard } from '../../../types/types';
 import { getAllCardBacks } from '../../../utils/getCards';
-import { List } from 'antd';
+import { List, Layout } from 'antd';
 
 
 const CardBackList: React.FC = () => {
@@ -17,11 +17,11 @@ const CardBackList: React.FC = () => {
     }, [getCardBacks])
 
     return (
-        <div>
+        <Layout>
             {cardBacks ?
                 <div>
                     <List
-                        grid={{ gutter: 16, column: 4 }}
+                        grid={{ xs: 1, sm: 2, md: 3, lg: 4 }}
                         size="large"
                         dataSource={cardBacks.cardBacks}
                         renderItem={(cardBack: CardBackCard) => (
@@ -35,7 +35,7 @@ const CardBackList: React.FC = () => {
                 </div>
                 : null
             }
-        </div>
+        </Layout>
     )
 }
 

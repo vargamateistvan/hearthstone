@@ -61,9 +61,11 @@ export interface ListConfig {
 }
 
 export interface OptionalParams {
-    cardClass: string;
-    cardSet: string;
+    class: string;
+    set: string;
     gameMode: string;
+    rarity: string;
+    type: string;
 }
 
 export interface CardListProps {
@@ -94,4 +96,43 @@ export interface HeartStoneCardProps {
 export interface CardModalProps {
     card: HeartStoneCard;
     isBattleGrounds: boolean;
+}
+
+export interface CardSet {
+    id: number;
+    name: string;
+    slug: string;
+    releaseDate: string;
+    type: string;
+    collectibleCount: number;
+    collectibleRevealedCount: number;
+    nonCollectibleCount: number;
+    nonCollectibleRevealedCount: number;
+}
+
+export interface CardClass {
+    slug: string;
+    id: number;
+    name: string;
+    cardId: number;
+}
+
+export interface GameMode {
+    slug: string;
+    id: number;
+    name: string;
+}
+
+export interface CardRarity {
+    slug: string,
+    id: number,
+    craftingCost: number[],
+    dustValue: number[],
+    name: string;
+}
+
+export interface CardType {
+    slug: string;
+    id: number;
+    name: string;
 }

@@ -1,9 +1,9 @@
 import React from 'react';
-import { List, Pagination, Input, Select, Typography, Row, Col, Switch } from 'antd';
+import { List, Pagination, Input, Select, Typography, Row, Col, Switch, Layout, Button } from 'antd';
+import { CloseOutlined } from '@ant-design/icons';
 
-import { getAllCards, getCard } from '../../../utils/getCards';
-import { Cards, ListConfig, HeartStoneCard } from '../../../types/types';
-import { CARD_CLASSES, CARD_SETS } from '../../../enums';
+import { getAllCards, getCard, getSets, getClasses, getRarities, getTypes } from '../../../utils/getCards';
+import { Cards, ListConfig, HeartStoneCard, CardSet, CardClass, CardRarity, CardType } from '../../../types/types';
 import HeartStoneCardItem from '../HeartstoneCard';
 
 const { Search } = Input;
@@ -16,9 +16,11 @@ const pageConfig = {
     sort: 'name',
     order: 'asc',
     optionalParams: {
-        cardClass: 'all',
-        cardSet: '',
-        gameMode: 'constructed'
+        gameMode: 'constructed',
+        class: 'all',
+        set: '',
+        rarity: '',
+        type: ''
     }
 }
 
@@ -26,6 +28,10 @@ const StandardCardList: React.FC = () => {
     const [listConfig, setListConfig] = React.useState<ListConfig>(pageConfig);
     const [cards, setCards] = React.useState<Cards | null>(null);
     const [showGoldsOnly, setShowGoldsOnly] = React.useState<boolean>(false);
+    const [cardSets, setCardSets] = React.useState<CardSet[]>([])
+    const [cardClasses, setCardClasses] = React.useState<CardClass[]>([])
+    const [cardRarities, setCardRarities] = React.useState<CardRarity[]>([])
+    const [cardTypes, setCardTypes] = React.useState<CardType[]>([])
 
     const getCards = React.useCallback(async (params) => {
         const result = await getAllCards(params);
@@ -34,9 +40,7 @@ const StandardCardList: React.FC = () => {
 
     const getCardByText = React.useCallback(async (params) => {
         const result = await getCard(params);
-        if (result) {
-            setCards(result);
-        }
+        if (result) setCards(result);
     }, []);
 
     React.useEffect(() => {
@@ -44,8 +48,32 @@ const StandardCardList: React.FC = () => {
         getCards(listConfig);
     }, [getCards, listConfig])
 
-    const cardClasses = Object.values(CARD_CLASSES);
-    const cardSets = Object.values(CARD_SETS);
+    const getCardSets = React.useCallback(async () => {
+        const result = await getSets();
+        if (result) setCardSets(result);
+    }, []);
+
+    const getCardClasses = React.useCallback(async () => {
+        const result = await getClasses();
+        if (result) setCardClasses(result);
+    }, []);
+
+    const getCardRarities = React.useCallback(async () => {
+        const result = await getRarities();
+        if (result) setCardRarities(result);
+    }, []);
+
+    const getCardTypes = React.useCallback(async () => {
+        const result = await getTypes();
+        if (result) setCardTypes(result);
+    }, []);
+
+    React.useEffect(() => {
+        getCardSets();
+        getCardClasses();
+        getCardRarities();
+        getCardTypes();
+    }, [getCardSets, getCardClasses, getCardRarities, getCardTypes])
 
     const onSortSelectChange = (order: string) => {
         pageConfig.order = order;
@@ -53,14 +81,39 @@ const StandardCardList: React.FC = () => {
         getCards(listConfig);
     }
 
-    const onClassSelectChange = (cardClass: string) => {
-        pageConfig.optionalParams.cardClass = cardClass;
+    const onSelectChange = (selected) => {
+        const isSetChanged = cardSets.some(set => set.slug === selected);
+        const isClassChanged = cardClasses.some(cardClass => cardClass.slug === selected);
+        const isRarityChanged = cardRarities.some(rarity => rarity.slug === selected);
+        const isTypeChanged = cardTypes.some(type => type.slug === selected);
+
+        if (isSetChanged) {
+            pageConfig.optionalParams.set = selected;
+        }
+
+        if (isClassChanged) {
+            pageConfig.optionalParams.class = selected;
+        }
+
+        if (isRarityChanged) {
+            pageConfig.optionalParams.rarity = selected;
+        }
+
+        if (isTypeChanged) {
+            pageConfig.optionalParams.type = selected;
+        }
+
         setListConfig(pageConfig);
         getCards(listConfig);
     }
 
-    const onSetsSelectChange = (cardSet: string) => {
-        pageConfig.optionalParams.cardSet = cardSet;
+    const resetFilter = () => {
+        pageConfig.optionalParams.gameMode = 'constructed';
+        pageConfig.optionalParams.class = 'all';
+        pageConfig.optionalParams.set = '';
+        pageConfig.optionalParams.rarity = '';
+        pageConfig.optionalParams.type = '';
+
         setListConfig(pageConfig);
         getCards(listConfig);
     }
@@ -81,44 +134,75 @@ const StandardCardList: React.FC = () => {
     }
 
     return (
-        <div>
+        <Layout>
             {cards ?
                 <div>
-                    <Row>
-                        <Col flex={7}>
+                    <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
+                        <Col>
                             <Search
                                 placeholder="Enter a card name"
                                 onSearch={onSearch}
                                 allowClear
                             ></Search>
                         </Col>
-                        <Col flex={5}>
+                        <Col >
+                            <Button type="dashed" onClick={resetFilter} icon={<CloseOutlined />}>Reset Filters</Button>
+                        </Col>
+                    </Row>
+                    <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
+                        <Col>
                             <Select
-                                defaultValue="all"
-                                onChange={onSetsSelectChange}
+                                defaultValue="Select a card set"
+                                onChange={onSelectChange}
                                 style={{ width: '250px' }}
                             >
-                                {cardSets.map((cardSet: string, index: number) => {
+                                {cardSets.map((set: CardSet, index: number) => {
                                     return (
-                                        <Option value={cardSet} key={index + 1}>{cardSet.toUpperCase()}</Option>
+                                        <Option value={set.slug} key={index + 1}>{set.name}</Option>
                                     )
                                 })}
                             </Select>
                         </Col>
-                        <Col flex={5}>
+                        <Col>
                             <Select
-                                defaultValue="all"
-                                onChange={onClassSelectChange}
+                                defaultValue="Select a card class"
+                                onChange={onSelectChange}
                                 style={{ width: '250px' }}
                             >
-                                {cardClasses.map((cardClass: string, index: number) => {
+                                {cardClasses.map((cardClass: CardClass, index: number) => {
                                     return (
-                                        <Option value={cardClass} key={index} >{cardClass.toUpperCase()}</Option>
+                                        <Option value={cardClass.slug} key={index} >{cardClass.name}</Option>
                                     )
                                 })}
                             </Select>
                         </Col>
-                        <Col flex={4}>
+                        <Col>
+                            <Select
+                                defaultValue="Select a card rarity"
+                                onChange={onSelectChange}
+                                style={{ width: '250px' }}
+                            >
+                                {cardRarities.map((rarity: CardRarity, index: number) => {
+                                    return (
+                                        <Option value={rarity.slug} key={index} >{rarity.name}</Option>
+                                    )
+                                })}
+                            </Select>
+                        </Col>
+                        <Col>
+                            <Select
+                                defaultValue="Select a card type"
+                                onChange={onSelectChange}
+                                style={{ width: '250px' }}
+                            >
+                                {cardTypes.map((type: CardType, index: number) => {
+                                    return (
+                                        <Option value={type.slug} key={index} >{type.name}</Option>
+                                    )
+                                })}
+                            </Select>
+                        </Col>
+                        <Col>
                             <Select
                                 defaultValue="asc"
                                 onChange={onSortSelectChange}
@@ -128,13 +212,13 @@ const StandardCardList: React.FC = () => {
                                 <Option value="manaCost">Mana cost</Option>
                             </Select>
                         </Col>
-                        <Col flex={2}>
+                        <Col>
                             <Text>Show golds</Text>
                             <Switch onChange={onShowGoldsOnly} />
                         </Col>
                     </Row>
                     <List
-                        grid={{ gutter: 16, column: 4 }}
+                        grid={{ xs: 1, sm: 2, md: 3, lg: 4 }}
                         size="large"
                         dataSource={cards.cards}
                         renderItem={(card: HeartStoneCard) => (
@@ -153,12 +237,12 @@ const StandardCardList: React.FC = () => {
                         defaultCurrent={pageConfig.pageNumber}
                         total={cards.cardCount}
                         onChange={onPaginationChange}
-                        pageSize={16}
+                        defaultPageSize={16}
                         pageSizeOptions={['16', '32', '64']}
                     />
                 </div>
                 : null}
-        </div>
+        </Layout>
     );
 }
 

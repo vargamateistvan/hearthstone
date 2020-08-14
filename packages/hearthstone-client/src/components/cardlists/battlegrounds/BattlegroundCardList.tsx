@@ -1,4 +1,5 @@
 import React from 'react';
+import { Layout } from 'antd';
 import { HeartStoneCard } from '../../../types/types';
 import { getAllCards } from '../../../utils/getCards';
 import HeroesList from './HeroesList';
@@ -45,7 +46,7 @@ const BattlegroundCardList: React.FC = () => {
     }
 
     return (
-        <div>
+        <Layout>
             <HeroesList
                 heroes={battlegroundsHeroes}
             ></HeroesList>
@@ -79,7 +80,7 @@ const BattlegroundCardList: React.FC = () => {
                 cards={getTierMinions(6)}
                 tier={6}
             ></TierCardList>
-        </div>
+        </Layout>
     )
 }
 

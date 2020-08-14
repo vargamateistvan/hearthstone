@@ -14,7 +14,7 @@ const HeroesList: React.FC<HeroesListProps> = ({ heroes }) => {
                 </Title>
             </Divider>
             <List
-                grid={{ gutter: 16, column: 4 }}
+                grid={{ xs: 1, sm: 2, md: 3, lg: 4 }}
                 size="large"
                 dataSource={heroes}
                 renderItem={(hero: HeartStoneCard) => (

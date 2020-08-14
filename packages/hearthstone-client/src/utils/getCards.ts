@@ -21,31 +21,50 @@ const getAccessToken = async () => {
     requestedTokenTime = new Date().getTime();
 }
 
-const checkToken = async () => {
-    if (!accessToken) return await getAccessToken();
+// const checkToken = async () => {
+//     if (!accessToken) return await getAccessToken();
+
+//     const expiredTime = new Date(requestedTokenTime + tokenExpirationTime).getTime();
+//     const now = new Date().getTime();
+
+//     if (expiredTime < now) {
+//         await getAccessToken();
+//     }
+// }
+
+const isTokenInVaild = () => {
+    if (!accessToken) return true;
 
     const expiredTime = new Date(requestedTokenTime + tokenExpirationTime).getTime();
     const now = new Date().getTime();
 
-    if (expiredTime < now) {
-        await getAccessToken();
-    }
+    return expiredTime < now;
 }
 
-export const getAllCards = async ({ pageNumber, pageSize, sort, order, optionalParams = { cardClass: null, cardSet: null, gameMode: null } }) => {
-    await checkToken();
-
-    let url = `${apiUrl}/cards?locale=en_US&page=${pageNumber}&pageSize=${pageSize}&sort=${sort}&order=${order}&access_token=${accessToken}`;
-    if (optionalParams.cardClass) {
-        url += `&class=${optionalParams.cardClass}`;
+export const getAllCards = async ({ pageNumber, pageSize, sort, order, optionalParams = { class: null, set: null, gameMode: null, rarity: null, type: null } }) => {
+    if (isTokenInVaild()) {
+        await getAccessToken();
     }
 
-    if (optionalParams.cardSet) {
-        url += `&set=${optionalParams.cardSet}`;
+    let url = `${apiUrl}/cards?locale=en_US&page=${pageNumber}&pageSize=${pageSize}&sort=${sort}&order=${order}&access_token=${accessToken}`;
+    if (optionalParams.class) {
+        url += `&class=${optionalParams.class}`;
+    }
+
+    if (optionalParams.set) {
+        url += `&set=${optionalParams.set}`;
     }
 
     if (optionalParams.gameMode) {
         url += `&gameMode=${optionalParams.gameMode}`;
+    }
+
+    if (optionalParams.rarity) {
+        url += `&rarity=${optionalParams.rarity}`;
+    }
+
+    if (optionalParams.type) {
+        url += `&type=${optionalParams.type}`;
     }
 
     const response = await fetch(url, {
@@ -61,7 +80,9 @@ export const getAllCards = async ({ pageNumber, pageSize, sort, order, optionalP
 }
 
 export const getCard = async (idorslug) => {
-    await checkToken();
+    if (isTokenInVaild()) {
+        await getAccessToken();
+    }
 
     const response = await fetch(`${apiUrl}/cards?locale=en_US&textFilter=${idorslug}&access_token=${accessToken}`, {
         method: 'GET',
@@ -75,9 +96,10 @@ export const getCard = async (idorslug) => {
     return await response.json();
 }
 
-
 export const getAllCardBacks = async () => {
-    await checkToken();
+    if (isTokenInVaild()) {
+        await getAccessToken();
+    }
 
     const pageConfig = {
         pageNumber: 1,
@@ -87,6 +109,91 @@ export const getAllCardBacks = async () => {
     }
 
     const response = await fetch(`${apiUrl}/cardbacks?locale=en_US&page=${pageConfig.pageNumber}&pageSize=${pageConfig.pageSize}&sort=${pageConfig.sort}&order=${pageConfig.order}&access_token=${accessToken}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'Authorization': 'Bearer ' + accessToken
+        }
+    })
+
+    return await response.json();
+}
+
+export const getSets = async () => {
+    if (isTokenInVaild()) {
+        await getAccessToken();
+    }
+
+    const response = await fetch(`${apiUrl}/metadata/sets?locale=en_US&access_token=${accessToken}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'Authorization': 'Bearer ' + accessToken
+        }
+    })
+
+    return await response.json();
+}
+
+export const getClasses = async () => {
+    if (isTokenInVaild()) {
+        await getAccessToken();
+    }
+
+    const response = await fetch(`${apiUrl}/metadata/classes?locale=en_US&access_token=${accessToken}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'Authorization': 'Bearer ' + accessToken
+        }
+    })
+
+    return await response.json();
+}
+
+export const getGameModes = async () => {
+    if (isTokenInVaild()) {
+        await getAccessToken();
+    }
+
+    const response = await fetch(`${apiUrl}/metadata/gameModes?locale=en_US&access_token=${accessToken}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'Authorization': 'Bearer ' + accessToken
+        }
+    })
+
+    return await response.json();
+}
+
+export const getRarities = async () => {
+    if (isTokenInVaild()) {
+        await getAccessToken();
+    }
+
+    const response = await fetch(`${apiUrl}/metadata/rarities?locale=en_US&access_token=${accessToken}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'Authorization': 'Bearer ' + accessToken
+        }
+    })
+
+    return await response.json();
+}
+
+export const getTypes = async () => {
+    if (isTokenInVaild()) {
+        await getAccessToken();
+    }
+
+    const response = await fetch(`${apiUrl}/metadata/types?locale=en_US&access_token=${accessToken}`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
