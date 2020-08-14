@@ -99,10 +99,10 @@ export interface GameMode {
 }
 
 export interface CardRarity {
-    slug: string,
-    id: number,
-    craftingCost: number[],
-    dustValue: number[],
+    slug: string;
+    id: number;
+    craftingCost: number[];
+    dustValue: number[];
     name: string;
 }
 
@@ -110,4 +110,15 @@ export interface CardType {
     slug: string;
     id: number;
     name: string;
+}
+
+export interface Deck {
+    deckCode: string;
+    version: number;
+    format: string;
+    hero: HeartStoneCard;
+    heroPower: HeartStoneCard;
+    class: CardClass;
+    cards: HeartStoneCard[];
+    cardCount: number;
 }

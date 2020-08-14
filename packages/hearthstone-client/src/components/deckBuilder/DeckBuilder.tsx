@@ -3,7 +3,7 @@ import { Layout, Steps } from 'antd';
 import { CardClass, HeartStoneCard } from '../../types/types';
 import CardClassSelector from './CardClassSelector';
 import DeckTypeSelector from './DeckTypeSelector';
-import CardSelector from './cardSelector';
+import CardSelector from './CardSelector';
 
 const { Step } = Steps;
 

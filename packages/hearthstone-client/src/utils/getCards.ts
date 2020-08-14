@@ -238,3 +238,21 @@ export const getHeroes = async () => {
 
     return await response.json();
 }
+
+
+export const getDeck = async (deckCode) => {
+    if (isTokenInVaild()) {
+        await getAccessToken();
+    }
+
+    const response = await fetch(`${apiUrl}/deck/${deckCode}?locale=en_US&type=hero&pageSize=1000&sort=name&order=desc&access_token=${accessToken}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'Authorization': 'Bearer ' + accessToken
+        }
+    })
+
+    return await response.json();
+}

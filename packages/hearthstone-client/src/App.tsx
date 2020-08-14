@@ -7,8 +7,9 @@ import './App.css';
 import BattlegroundCardList from './components/cardlists/battlegrounds/BattlegroundCardList';
 import StandardCardList from './components/cardlists/standard/StandardCardList';
 import CardBackList from './components/cardlists/cardbacks/CardBackList';
-import DeckBuilder from './components/deckBuilder/deckBuilder';
+import DeckBuilder from './components/deckBuilder/DeckBuilder';
 import { getAccessToken } from './utils/getCards';
+import DeckReader from './components/deckReader/DeckReader';
 
 const { TabPane } = Tabs;
 
@@ -43,6 +44,9 @@ const App: React.FC = () => {
 					</TabPane>
 					<TabPane tab="Deck builder" key="4">
 						<DeckBuilder></DeckBuilder>
+					</TabPane>
+					<TabPane tab="Deck reader" key="5">
+						<DeckReader></DeckReader>
 					</TabPane>
 				</Tabs>
 			</Layout>
