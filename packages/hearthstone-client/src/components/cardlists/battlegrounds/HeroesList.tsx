@@ -1,9 +1,13 @@
 import React from 'react';
 import { Divider, List, Typography } from 'antd';
-import { HeartStoneCard, HeroesListProps } from '../../../types/types';
+import { HeartStoneCard } from '../../../types/types';
 import HeartStoneCardItem from '../HeartstoneCard';
 
 const { Title } = Typography;
+
+interface HeroesListProps {
+    heroes: HeartStoneCard[];
+}
 
 const HeroesList: React.FC<HeroesListProps> = ({ heroes }) => {
     return (

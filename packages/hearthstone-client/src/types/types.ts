@@ -55,47 +55,22 @@ interface BattleGrounds {
 export interface ListConfig {
     pageNumber?: number;
     pageSize?: number;
-    sort: string;
-    order: string;
+    sort?: string;
+    order?: string;
     optionalParams?: OptionalParams;
 }
 
 export interface OptionalParams {
-    class: string;
-    set: string;
-    gameMode: string;
-    rarity: string;
-    type: string;
+    class?: string;
+    set?: string;
+    gameMode?: string;
+    rarity?: string;
+    type?: string;
 }
 
 export interface CardListProps {
     cardSet: string;
     gameMode: string;
-}
-
-export interface BattleGroundsCardListProps {
-    heroes: HeartStoneCard[];
-    cards: HeartStoneCard[];
-}
-
-export interface HeroesListProps {
-    heroes: HeartStoneCard[];
-}
-
-export interface TierCardListProps {
-    cards: HeartStoneCard[];
-    tier: number;
-}
-
-export interface HeartStoneCardProps {
-    card: HeartStoneCard;
-    showGoldsOnly?: boolean;
-    isBattleGrounds?: boolean
-}
-
-export interface CardModalProps {
-    card: HeartStoneCard;
-    isBattleGrounds: boolean;
 }
 
 export interface CardSet {
@@ -114,7 +89,7 @@ export interface CardClass {
     slug: string;
     id: number;
     name: string;
-    cardId: number;
+    cardId?: number;
 }
 
 export interface GameMode {

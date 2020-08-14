@@ -1,9 +1,14 @@
 import React from 'react';
 import { Card } from 'antd';
 import { Row, Col, Typography } from 'antd';
-import { CardModalProps } from '../../types/types';
+import { HeartStoneCard } from '../../types/types';
 
 const { Text, Title } = Typography;
+
+export interface CardModalProps {
+    card: HeartStoneCard;
+    isBattleGrounds: boolean;
+}
 
 const ViewCardModal: React.FC<CardModalProps> = ({ card, isBattleGrounds = false }) => {
     const { image, battlegrounds, name, text } = card;

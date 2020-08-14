@@ -1,9 +1,14 @@
 import React from 'react';
 import { Divider, List, Typography } from 'antd';
-import { HeartStoneCard, TierCardListProps } from '../../../types/types';
+import { HeartStoneCard } from '../../../types/types';
 import HeartStoneCardItem from '../HeartstoneCard';
 
 const { Title } = Typography;
+
+interface TierCardListProps {
+    cards: HeartStoneCard[];
+    tier: number;
+}
 
 const TierCardList: React.FC<TierCardListProps> = ({ cards, tier }) => {
     return (
@@ -12,7 +17,8 @@ const TierCardList: React.FC<TierCardListProps> = ({ cards, tier }) => {
                 <Title>
                     TIER {tier} Cards
                 </Title>
-            </Divider>            <List
+            </Divider>
+            <List
                 grid={{ xs: 1, sm: 2, md: 3, lg: 4 }}
                 size="large"
                 dataSource={cards}

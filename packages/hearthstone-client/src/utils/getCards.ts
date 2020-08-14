@@ -5,7 +5,7 @@ let accessToken;
 let tokenExpirationTime;
 let requestedTokenTime;
 
-const getAccessToken = async () => {
+export const getAccessToken = async () => {
     const response = await fetch(`https://us.battle.net/oauth/token`, {
         body: "grant_type=client_credentials",
         headers: {
@@ -41,12 +41,29 @@ const isTokenInVaild = () => {
     return expiredTime < now;
 }
 
-export const getAllCards = async ({ pageNumber, pageSize, sort, order, optionalParams = { class: null, set: null, gameMode: null, rarity: null, type: null } }) => {
+export const getAllCards = async ({ pageNumber = null, pageSize = null, sort = null, order = null, optionalParams = { class: null, set: null, gameMode: null, rarity: null, type: null } }) => {
     if (isTokenInVaild()) {
         await getAccessToken();
     }
 
-    let url = `${apiUrl}/cards?locale=en_US&page=${pageNumber}&pageSize=${pageSize}&sort=${sort}&order=${order}&access_token=${accessToken}`;
+    let url = `${apiUrl}/cards?locale=en_US&access_token=${accessToken}`;
+
+    if (pageNumber) {
+        url += `&page=${pageNumber}`
+    }
+
+    if (pageSize) {
+        url += `&pageSize=${pageSize}`
+    }
+
+    if (sort) {
+        url += `&sort=${sort}`
+    }
+
+    if (order) {
+        url += `&order=${order}`
+    }
+
     if (optionalParams.class) {
         url += `&class=${optionalParams.class}`;
     }
@@ -194,6 +211,23 @@ export const getTypes = async () => {
     }
 
     const response = await fetch(`${apiUrl}/metadata/types?locale=en_US&access_token=${accessToken}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'Authorization': 'Bearer ' + accessToken
+        }
+    })
+
+    return await response.json();
+}
+
+export const getHeroes = async () => {
+    if (isTokenInVaild()) {
+        await getAccessToken();
+    }
+
+    const response = await fetch(`${apiUrl}/cards?locale=en_US&type=hero&pageSize=1000&sort=name&order=desc&access_token=${accessToken}`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',

@@ -1,7 +1,13 @@
 import React from 'react';
 import { Card, Modal } from 'antd';
-import { HeartStoneCardProps } from '../../types/types';
 import ViewCardModal from './CardModal';
+import { HeartStoneCard } from '../../types/types';
+
+interface HeartStoneCardProps {
+    card: HeartStoneCard;
+    showGoldsOnly?: boolean;
+    isBattleGrounds?: boolean
+}
 
 const HeartStoneCardItem: React.FC<HeartStoneCardProps> = ({ card, showGoldsOnly = false, isBattleGrounds = false }) => {
     const [showCard, setShowCard] = React.useState<boolean>(false);
