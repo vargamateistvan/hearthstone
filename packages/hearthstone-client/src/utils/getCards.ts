@@ -21,19 +21,19 @@ const getAccessToken = async () => {
     requestedTokenTime = new Date().getTime();
 }
 
-const isTokenVaild = () => {
-    if (!accessToken) return true;
+const checkToken = async () => {
+    if (!accessToken) return await getAccessToken();
 
     const expiredTime = new Date(requestedTokenTime + tokenExpirationTime).getTime();
     const now = new Date().getTime();
 
-    return expiredTime < now
+    if (expiredTime < now) {
+        await getAccessToken();
+    }
 }
 
 export const getAllCards = async ({ pageNumber, pageSize, sort, order, optionalParams = { cardClass: null, cardSet: null, gameMode: null } }) => {
-    if (isTokenVaild()) {
-        await getAccessToken();
-    }
+    await checkToken();
 
     let url = `${apiUrl}/cards?locale=en_US&page=${pageNumber}&pageSize=${pageSize}&sort=${sort}&order=${order}&access_token=${accessToken}`;
     if (optionalParams.cardClass) {
@@ -61,9 +61,7 @@ export const getAllCards = async ({ pageNumber, pageSize, sort, order, optionalP
 }
 
 export const getCard = async (idorslug) => {
-    if (isTokenVaild()) {
-        await getAccessToken();
-    }
+    await checkToken();
 
     const response = await fetch(`${apiUrl}/cards?locale=en_US&textFilter=${idorslug}&access_token=${accessToken}`, {
         method: 'GET',
@@ -79,9 +77,8 @@ export const getCard = async (idorslug) => {
 
 
 export const getAllCardBacks = async () => {
-    if (isTokenVaild()) {
-        await getAccessToken();
-    }
+    await checkToken();
+
     const pageConfig = {
         pageNumber: 1,
         pageSize: 1000,

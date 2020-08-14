@@ -5,8 +5,8 @@ import { CardModalProps } from '../../types/types';
 
 const { Text, Title } = Typography;
 
-const ViewCardModal: React.FC<CardModalProps> = ({ card }) => {
-    const { image, name, text } = card;
+const ViewCardModal: React.FC<CardModalProps> = ({ card, isBattleGrounds = false }) => {
+    const { image, battlegrounds, name, text } = card;
     return (
         <Card
         >
@@ -14,8 +14,10 @@ const ViewCardModal: React.FC<CardModalProps> = ({ card }) => {
                 justify="space-between"
             >
                 <Col span={12}>
-                    <img alt={name} src={image} />
-                </Col>
+                    {!isBattleGrounds ?
+                        <img alt={name} src={image} /> :
+                        <img alt={name} src={battlegrounds.image} />
+                    }                </Col>
                 <Col span={12}>
                     <Title level={2}>{name}</Title>
                     <Text>{text}</Text>

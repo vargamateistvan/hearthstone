@@ -13,7 +13,6 @@ const { Header, Content } = Layout;
 
 const App: React.FC = () => {
   const [menuItem, setMenuItem] = React.useState<string | ''>('constructed');
-
   const menu = Object.values(MENU);
 
   const menuItemChange = (menuItem) => {

@@ -29,6 +29,7 @@ const HeartStoneCardItem: React.FC<HeartStoneCardProps> = ({ card, showGoldsOnly
             >
                 <ViewCardModal
                     card={card}
+                    isBattleGrounds={isBattleGrounds}
                 ></ViewCardModal>
             </Modal>
         </div>

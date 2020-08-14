@@ -93,4 +93,5 @@ export interface HeartStoneCardProps {
 
 export interface CardModalProps {
     card: HeartStoneCard;
+    isBattleGrounds: boolean;
 }
