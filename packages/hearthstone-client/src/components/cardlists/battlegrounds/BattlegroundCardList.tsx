@@ -1,5 +1,5 @@
 import React from 'react';
-import { HeartStoneCard, ListConfig } from '../../../types/types';
+import { HeartStoneCard } from '../../../types/types';
 import { getAllCards } from '../../../utils/getCards';
 import HeroesList from './HeroesList';
 import TierCardList from './TierCardList';
@@ -17,7 +17,6 @@ const pageConfig = {
 }
 
 const BattlegroundCardList: React.FC = () => {
-    const [listConfig, setListConfig] = React.useState<ListConfig>(pageConfig);
     const [battlegroundsHeroes, setBattlegroundsHeroes] = React.useState<HeartStoneCard[] | []>([]);
     const [battlegroundsCards, setBattlegroundsCards] = React.useState<HeartStoneCard[] | []>([]);
 
@@ -37,9 +36,8 @@ const BattlegroundCardList: React.FC = () => {
     }, []);
 
     React.useEffect(() => {
-        setListConfig(pageConfig);
-        getCards(listConfig);
-    }, [getCards, listConfig])
+        getCards(pageConfig);
+    }, [getCards])
 
     const getTierMinions = (tier: number) => {
         return battlegroundsCards

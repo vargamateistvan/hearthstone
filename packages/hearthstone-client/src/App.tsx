@@ -4,19 +4,20 @@ import { Layout, Menu, Col, Row, } from 'antd';
 import smallLogo from './images/small_logo.png';
 import './App.css';
 
-import { GAMEMODES } from './types/enums';
+import { MENU } from './enums';
 import BattlegroundCardList from './components/cardlists/battlegrounds/BattlegroundCardList';
 import StandardCardList from './components/cardlists/standard/StandardCardList';
+import CardBackList from './components/cardlists/cardbacks/CardBackList';
 
 const { Header, Content } = Layout;
 
 const App: React.FC = () => {
-  const [gameMode, setGameMode] = React.useState<string | ''>('constructed');
+  const [menuItem, setMenuItem] = React.useState<string | ''>('constructed');
 
-  const gameModes = Object.values(GAMEMODES);
+  const menu = Object.values(MENU);
 
-  const gameModeChange = (gameMode) => {
-    setGameMode(gameMode);
+  const menuItemChange = (menuItem) => {
+    setMenuItem(menuItem);
   }
 
   return (
@@ -28,9 +29,9 @@ const App: React.FC = () => {
           </Col>
           <Col flex="auto">
             <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['0']}>
-              {gameModes.map((gameMode: string, index: number) => {
+              {menu.map((item: string, index: number) => {
                 return (
-                  <Menu.Item onClick={() => gameModeChange(gameMode)} key={index}>{gameMode === GAMEMODES.STANDARD ? 'Standard Card' : gameMode.toUpperCase()}</Menu.Item>
+                  <Menu.Item onClick={() => menuItemChange(item)} key={index}>{item === MENU.STANDARD ? 'STANDARD CARDS' : item.toUpperCase()}</Menu.Item>
                 )
               })}
             </Menu>
@@ -47,9 +48,11 @@ const App: React.FC = () => {
             minHeight: 280,
           }}
         >
-          {gameMode === GAMEMODES.STANDARD ?
-            <StandardCardList></StandardCardList>
-            : <BattlegroundCardList></BattlegroundCardList>
+          {menuItem === MENU.STANDARD ?
+            <StandardCardList></StandardCardList> :
+            menuItem === MENU.BATTLEGROUNDS ?
+              <BattlegroundCardList></BattlegroundCardList> :
+              <CardBackList></CardBackList>
           }
         </Content>
       </Layout>

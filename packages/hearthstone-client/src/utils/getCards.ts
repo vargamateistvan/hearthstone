@@ -76,3 +76,27 @@ export const getCard = async (idorslug) => {
 
     return await response.json();
 }
+
+
+export const getAllCardBacks = async () => {
+    if (isTokenVaild()) {
+        await getAccessToken();
+    }
+    const pageConfig = {
+        pageNumber: 1,
+        pageSize: 1000,
+        sort: 'name',
+        order: 'asc'
+    }
+
+    const response = await fetch(`${apiUrl}/cardbacks?locale=en_US&page=${pageConfig.pageNumber}&pageSize=${pageConfig.pageSize}&sort=${pageConfig.sort}&order=${pageConfig.order}&access_token=${accessToken}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'Authorization': 'Bearer ' + accessToken
+        }
+    })
+
+    return await response.json();
+}

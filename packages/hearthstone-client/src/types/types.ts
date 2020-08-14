@@ -28,6 +28,21 @@ export interface HeartStoneCard {
     text: string;
     battlegrounds: BattleGrounds;
 }
+export interface CardBack {
+    cardCount: number;
+    cardBacks: CardBackCard[];
+    page: number;
+    pageCount: number;
+}
+
+export interface CardBackCard {
+    id: number;
+    sortCategory: number;
+    text: string;
+    name: string;
+    image: string;
+    slug: string;
+}
 
 interface BattleGrounds {
     tier: number;
@@ -38,11 +53,11 @@ interface BattleGrounds {
 }
 
 export interface ListConfig {
-    pageNumber: number;
-    pageSize: number;
+    pageNumber?: number;
+    pageSize?: number;
     sort: string;
     order: string;
-    optionalParams: OptionalParams;
+    optionalParams?: OptionalParams;
 }
 
 export interface OptionalParams {
@@ -74,4 +89,8 @@ export interface HeartStoneCardProps {
     card: HeartStoneCard;
     showGoldsOnly?: boolean;
     isBattleGrounds?: boolean
+}
+
+export interface CardModalProps {
+    card: HeartStoneCard;
 }

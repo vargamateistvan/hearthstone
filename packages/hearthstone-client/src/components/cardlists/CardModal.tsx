@@ -1,11 +1,12 @@
 import React from 'react';
 import { Card } from 'antd';
 import { Row, Col, Typography } from 'antd';
-import { HeartStoneCard } from '../../types/types';
+import { CardModalProps } from '../../types/types';
 
 const { Text, Title } = Typography;
 
-const ViewCardModal: React.FC<HeartStoneCard> = ({ image, name, text }) => {
+const ViewCardModal: React.FC<CardModalProps> = ({ card }) => {
+    const { image, name, text } = card;
     return (
         <Card
         >

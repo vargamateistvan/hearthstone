@@ -1,10 +1,9 @@
 import React from 'react';
-import { List, Modal, Pagination, Input, Select, Typography, Row, Col, Switch } from 'antd';
+import { List, Pagination, Input, Select, Typography, Row, Col, Switch } from 'antd';
 
 import { getAllCards, getCard } from '../../../utils/getCards';
 import { Cards, ListConfig, HeartStoneCard } from '../../../types/types';
-import { CARDCLASSES, CARDSETS } from '../../../types/enums';
-import ViewCardModal from '../CardModal';
+import { CARD_CLASSES, CARD_SETS } from '../../../enums';
 import HeartStoneCardItem from '../HeartstoneCard';
 
 const { Search } = Input;
@@ -26,15 +25,11 @@ const pageConfig = {
 const StandardCardList: React.FC = () => {
     const [listConfig, setListConfig] = React.useState<ListConfig>(pageConfig);
     const [cards, setCards] = React.useState<Cards | null>(null);
-    const [showCard, setShowCard] = React.useState<boolean>(false);
-    const [currentCard, setCurrentCard] = React.useState<HeartStoneCard | null>(null);
     const [showGoldsOnly, setShowGoldsOnly] = React.useState<boolean>(false);
 
     const getCards = React.useCallback(async (params) => {
         const result = await getAllCards(params);
-        if (result) {
-            setCards(result);
-        }
+        if (result) setCards(result);
     }, []);
 
     const getCardByText = React.useCallback(async (params) => {
@@ -49,8 +44,8 @@ const StandardCardList: React.FC = () => {
         getCards(listConfig);
     }, [getCards, listConfig])
 
-    const cardClasses = Object.values(CARDCLASSES);
-    const cardSets = Object.values(CARDSETS);
+    const cardClasses = Object.values(CARD_CLASSES);
+    const cardSets = Object.values(CARD_SETS);
 
     const onSortSelectChange = (order: string) => {
         pageConfig.order = order;
@@ -83,11 +78,6 @@ const StandardCardList: React.FC = () => {
 
     const onSearch = (query: string) => {
         getCardByText(query);
-    }
-
-    const onShowCard = (card: HeartStoneCard) => {
-        setCurrentCard(card)
-        setShowCard(true);
     }
 
     return (
@@ -150,7 +140,6 @@ const StandardCardList: React.FC = () => {
                         renderItem={(card: HeartStoneCard) => (
                             <List.Item
                                 key={card.id}
-                                onClick={() => onShowCard(card)}
                             >
                                 <HeartStoneCardItem
                                     card={card}
@@ -169,38 +158,6 @@ const StandardCardList: React.FC = () => {
                     />
                 </div>
                 : null}
-
-            {currentCard ?
-                <Modal
-                    visible={showCard}
-                    centered
-                    onOk={() => setShowCard(false)}
-                    onCancel={() => setShowCard(false)}
-                >
-                    <ViewCardModal
-                        artistName={currentCard.artistName}
-                        attack={currentCard.attack}
-                        cardSetId={currentCard.cardSetId}
-                        cardTypeId={currentCard.cardTypeId}
-                        classId={currentCard.classId}
-                        collectible={currentCard.collectible}
-                        cropImage={currentCard.cropImage}
-                        flavorText={currentCard.flavorText}
-                        health={currentCard.health}
-                        id={currentCard.id}
-                        image={currentCard.image}
-                        imageGold={currentCard.imageGold}
-                        keywordIds={currentCard.keywordIds}
-                        manaCost={currentCard.manaCost}
-                        minionTypeId={currentCard.minionTypeId}
-                        multiClassIds={currentCard.multiClassIds}
-                        name={currentCard.name}
-                        rarityId={currentCard.rarityId}
-                        slug={currentCard.slug}
-                        text={currentCard.text}
-                        battlegrounds={currentCard.battlegrounds}
-                    ></ViewCardModal>
-                </Modal> : null}
         </div>
     );
 }
