@@ -6,7 +6,7 @@ import HeartStoneCardItem from '../cardlists/HeartstoneCard';
 
 const pageConfig = {
     pageSize: 1000,
-    sort: 'manacost',
+    sort: 'manaCost',
     order: 'asc',
     optionalParams: {
         gameMode: 'constructed',
