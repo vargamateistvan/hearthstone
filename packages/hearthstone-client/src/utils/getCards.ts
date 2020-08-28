@@ -1,6 +1,6 @@
 const base64 = require('base-64');
 
-const apiUrl = `https://us.api.blizzard.com/hearthstone/`;
+const apiUrl = `https://us.api.blizzard.com/hearthstone`;
 let accessToken;
 let tokenExpirationTime;
 let requestedTokenTime;

@@ -32,7 +32,6 @@ const isTokenInVaild = () => {
 
 const checkToken = async () => {
     if (!accessToken) return await getAccessToken();
-
     const expiredTime = new Date(requestedTokenTime + tokenExpirationTime).getTime();
     const now = new Date().getTime();
 

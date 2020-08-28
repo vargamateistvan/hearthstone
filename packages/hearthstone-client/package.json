@@ -15,12 +15,10 @@
     "@types/react": "16.9.44",
     "@types/react-dom": "16.9.8",
     "antd": "^4.5.2",
-    "apollo-server": "^2.17.0",
     "base-64": "^0.1.0",
     "dotenv": "^8.2.0",
     "graphql": "^15.3.0",
-    "node-cron": "^2.0.3",
-    "node-fetch": "^2.6.0",
+    "nodemon": "^2.0.4",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-scripts": "^3.4.1",
@@ -28,14 +26,13 @@
     "typescript": "3.5.3"
   },
   "scripts": {
-    "dev": "react-scripts start",
+    "client": "react-scripts start",
+    "server": "nodemon server/server.js --ignore 'server/data/*'",
     "start": "serve -s build",
-    "build": "react-scripts build",
+    "build": "react-scripts build && (cd server && yarn install)",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "heroku-postbuild": "npm run build",
-    "generate-gql-types": "graphql-codegen",
-    "server": "node src/server.js"
+    "heroku-postbuild": "npm run build"
   },
   "eslintConfig": {
     "extends": "react-app"

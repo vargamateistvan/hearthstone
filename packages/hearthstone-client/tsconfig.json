@@ -21,7 +21,8 @@
     "noImplicitAny": false
   },
   "include": [
-    "src"
+    "src",
+    "server/server.js"
   ],
   "exclude": [
     "node_modules",

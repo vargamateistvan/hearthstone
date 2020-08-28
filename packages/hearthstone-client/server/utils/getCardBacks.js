@@ -2,7 +2,9 @@ const fetch = require('node-fetch');
 const fs = require('fs');
 
 const AccessToken = require('./accessToken');
-const apiUrl = `https://us.api.blizzard.com/hearthstone/`;
+const apiUrl = `https://us.api.blizzard.com/hearthstone`;
+
+const dataLocation = fs.existsSync('./data') ? './data' : './server/data';
 
 const getAllCardBacks = async () => {
     try {
@@ -31,7 +33,7 @@ const getAllCardBacks = async () => {
 
 module.exports = async () => {
     const result = await getAllCardBacks();
-    fs.writeFile('./src/data/card_backs.json', JSON.stringify(result.cardBacks), (err) => {
+    fs.writeFile(`${dataLocation}/card_backs.json`, JSON.stringify(result.cardBacks), (err) => {
         if (err) return console.error(err);
         console.log('Get card card backs > card_backs.json');
     });

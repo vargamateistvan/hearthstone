@@ -1,6 +1,11 @@
 const { ApolloServer } = require('apollo-server');
 const cron = require('node-cron');
-require('dotenv').config();
+const fs = require('fs');
+
+const isRunningFromPackage = fs.existsSync('./data');
+require('dotenv').config({
+    path: isRunningFromPackage ? '../.env' : '.env'
+});
 
 const typeDefs = require('./types/typeDefs');
 const resolvers = require('./types/resolvers');

@@ -4,6 +4,8 @@ const fs = require('fs');
 const AccessToken = require('./accessToken');
 const apiUrl = `https://us.api.blizzard.com/hearthstone`;
 
+const dataLocation = fs.existsSync('./data') ? './data' : './server/data';
+
 const getSets = async () => {
     try {
         await AccessToken.checkToken();
@@ -80,32 +82,31 @@ const getTypes = async () => {
     }
 }
 
-
 module.exports = {
     getCardSets: async () => {
         const result = await getSets();
-        fs.writeFile('./src/data/sets.json', JSON.stringify(result), (err) => {
+        fs.writeFile(`${dataLocation}/sets.json`, JSON.stringify(result), (err) => {
             if (err) return console.error(err);
             console.log('Get card sets > sets.json');
         });
     },
     getCardClasses: async () => {
         const result = await getClasses();
-        fs.writeFile('./src/data/classes.json', JSON.stringify(result), (err) => {
+        fs.writeFile(`${dataLocation}/classes.json`, JSON.stringify(result), (err) => {
             if (err) return console.error(err);
             console.log('Get card classes > classes.json');
         });
     },
     getCardRarities: async () => {
         const result = await getRarities();
-        fs.writeFile('./src/data/rarities.json', JSON.stringify(result), (err) => {
+        fs.writeFile(`${dataLocation}/rarities.json`, JSON.stringify(result), (err) => {
             if (err) return console.error(err);
             console.log('Get card rarities > rarities.json');
         });
     },
     getCardTypes: async () => {
         const result = await getTypes();
-        fs.writeFile('./src/data/types.json', JSON.stringify(result), (err) => {
+        fs.writeFile(`${dataLocation}/types.json`, JSON.stringify(result), (err) => {
             if (err) return console.error(err);
             console.log('Get card types > types.json');
         });
