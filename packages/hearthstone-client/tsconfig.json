@@ -1,18 +1,6 @@
 {
   "compilerOptions": {
     "target": "es5",
-    // "baseUrl": "\u0000",
-    // "paths": {
-    //   "@types/*": [
-    //     "src/types/*"
-    //   ],
-    //   "@enums/*": [
-    //     "src/enums/*"
-    //   ],
-    //   "@app/*": [
-    //     "src/components/*"
-    //   ]
-    // },
     "lib": [
       "dom",
       "dom.iterable",

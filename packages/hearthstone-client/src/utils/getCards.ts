@@ -42,217 +42,257 @@ const isTokenInVaild = () => {
 }
 
 export const getAllCards = async ({ pageNumber = null, pageSize = null, sort = null, order = null, optionalParams = { class: null, set: null, gameMode: null, rarity: null, type: null } }) => {
-    if (isTokenInVaild()) {
-        await getAccessToken();
-    }
-
-    let url = `${apiUrl}/cards?locale=en_US&access_token=${accessToken}`;
-
-    if (pageNumber) {
-        url += `&page=${pageNumber}`
-    }
-
-    if (pageSize) {
-        url += `&pageSize=${pageSize}`
-    }
-
-    if (sort) {
-        url += `&sort=${sort}`
-    }
-
-    if (order) {
-        url += `&order=${order}`
-    }
-
-    if (optionalParams.class) {
-        url += `&class=${optionalParams.class}`;
-    }
-
-    if (optionalParams.set) {
-        url += `&set=${optionalParams.set}`;
-    }
-
-    if (optionalParams.gameMode) {
-        url += `&gameMode=${optionalParams.gameMode}`;
-    }
-
-    if (optionalParams.rarity) {
-        url += `&rarity=${optionalParams.rarity}`;
-    }
-
-    if (optionalParams.type) {
-        url += `&type=${optionalParams.type}`;
-    }
-
-    const response = await fetch(url, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            'Authorization': 'Bearer ' + accessToken
+    try {
+        if (isTokenInVaild()) {
+            await getAccessToken();
         }
-    })
 
-    return await response.json();
+        let url = `${apiUrl}/cards?locale=en_US&access_token=${accessToken}`;
+
+        if (pageNumber) {
+            url += `&page=${pageNumber}`
+        }
+
+        if (pageSize) {
+            url += `&pageSize=${pageSize}`
+        }
+
+        if (sort) {
+            url += `&sort=${sort}`
+        }
+
+        if (order) {
+            url += `&order=${order}`
+        }
+
+        if (optionalParams.class) {
+            url += `&class=${optionalParams.class}`;
+        }
+
+        if (optionalParams.set) {
+            url += `&set=${optionalParams.set}`;
+        }
+
+        if (optionalParams.gameMode) {
+            url += `&gameMode=${optionalParams.gameMode}`;
+        }
+
+        if (optionalParams.rarity) {
+            url += `&rarity=${optionalParams.rarity}`;
+        }
+
+        if (optionalParams.type) {
+            url += `&type=${optionalParams.type}`;
+        }
+
+        const response = await fetch(url, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'Authorization': 'Bearer ' + accessToken
+            }
+        })
+
+        return await response.json();
+    } catch (error) {
+        console.error(error);
+    }
 }
 
 export const getCard = async (idorslug) => {
-    if (isTokenInVaild()) {
-        await getAccessToken();
-    }
-
-    const response = await fetch(`${apiUrl}/cards?locale=en_US&textFilter=${idorslug}&access_token=${accessToken}`, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            'Authorization': 'Bearer ' + accessToken
+    try {
+        if (isTokenInVaild()) {
+            await getAccessToken();
         }
-    })
 
-    return await response.json();
+        const response = await fetch(`${apiUrl}/cards?locale=en_US&textFilter=${idorslug}&access_token=${accessToken}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'Authorization': 'Bearer ' + accessToken
+            }
+        })
+
+        return await response.json();
+    } catch (error) {
+        console.error(error);
+    }
 }
 
 export const getAllCardBacks = async () => {
-    if (isTokenInVaild()) {
-        await getAccessToken();
-    }
-
-    const pageConfig = {
-        pageNumber: 1,
-        pageSize: 1000,
-        sort: 'name',
-        order: 'asc'
-    }
-
-    const response = await fetch(`${apiUrl}/cardbacks?locale=en_US&page=${pageConfig.pageNumber}&pageSize=${pageConfig.pageSize}&sort=${pageConfig.sort}&order=${pageConfig.order}&access_token=${accessToken}`, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            'Authorization': 'Bearer ' + accessToken
+    try {
+        if (isTokenInVaild()) {
+            await getAccessToken();
         }
-    })
 
-    return await response.json();
+        const pageConfig = {
+            pageNumber: 1,
+            pageSize: 1000,
+            sort: 'name',
+            order: 'asc'
+        }
+
+        const response = await fetch(`${apiUrl}/cardbacks?locale=en_US&page=${pageConfig.pageNumber}&pageSize=${pageConfig.pageSize}&sort=${pageConfig.sort}&order=${pageConfig.order}&access_token=${accessToken}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'Authorization': 'Bearer ' + accessToken
+            }
+        })
+
+        return await response.json();
+    } catch (error) {
+        console.error(error);
+    }
 }
 
 export const getSets = async () => {
-    if (isTokenInVaild()) {
-        await getAccessToken();
-    }
-
-    const response = await fetch(`${apiUrl}/metadata/sets?locale=en_US&access_token=${accessToken}`, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            'Authorization': 'Bearer ' + accessToken
+    try {
+        if (isTokenInVaild()) {
+            await getAccessToken();
         }
-    })
 
-    return await response.json();
+        const response = await fetch(`${apiUrl}/metadata/sets?locale=en_US&access_token=${accessToken}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'Authorization': 'Bearer ' + accessToken
+            }
+        })
+
+        return await response.json();
+    } catch (error) {
+        console.error(error);
+    }
 }
 
 export const getClasses = async () => {
-    if (isTokenInVaild()) {
-        await getAccessToken();
-    }
-
-    const response = await fetch(`${apiUrl}/metadata/classes?locale=en_US&access_token=${accessToken}`, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            'Authorization': 'Bearer ' + accessToken
+    try {
+        if (isTokenInVaild()) {
+            await getAccessToken();
         }
-    })
 
-    return await response.json();
+        const response = await fetch(`${apiUrl}/metadata/classes?locale=en_US&access_token=${accessToken}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'Authorization': 'Bearer ' + accessToken
+            }
+        })
+
+        return await response.json();
+    } catch (error) {
+        console.error(error);
+    }
 }
 
 export const getGameModes = async () => {
-    if (isTokenInVaild()) {
-        await getAccessToken();
-    }
-
-    const response = await fetch(`${apiUrl}/metadata/gameModes?locale=en_US&access_token=${accessToken}`, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            'Authorization': 'Bearer ' + accessToken
+    try {
+        if (isTokenInVaild()) {
+            await getAccessToken();
         }
-    })
 
-    return await response.json();
+        const response = await fetch(`${apiUrl}/metadata/gameModes?locale=en_US&access_token=${accessToken}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'Authorization': 'Bearer ' + accessToken
+            }
+        })
+
+        return await response.json();
+    } catch (error) {
+        console.error(error);
+    }
 }
 
 export const getRarities = async () => {
-    if (isTokenInVaild()) {
-        await getAccessToken();
-    }
-
-    const response = await fetch(`${apiUrl}/metadata/rarities?locale=en_US&access_token=${accessToken}`, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            'Authorization': 'Bearer ' + accessToken
+    try {
+        if (isTokenInVaild()) {
+            await getAccessToken();
         }
-    })
 
-    return await response.json();
+        const response = await fetch(`${apiUrl}/metadata/rarities?locale=en_US&access_token=${accessToken}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'Authorization': 'Bearer ' + accessToken
+            }
+        })
+
+        return await response.json();
+    } catch (error) {
+        console.error(error);
+    }
 }
 
 export const getTypes = async () => {
-    if (isTokenInVaild()) {
-        await getAccessToken();
-    }
-
-    const response = await fetch(`${apiUrl}/metadata/types?locale=en_US&access_token=${accessToken}`, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            'Authorization': 'Bearer ' + accessToken
+    try {
+        if (isTokenInVaild()) {
+            await getAccessToken();
         }
-    })
 
-    return await response.json();
+        const response = await fetch(`${apiUrl}/metadata/types?locale=en_US&access_token=${accessToken}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'Authorization': 'Bearer ' + accessToken
+            }
+        })
+
+        return await response.json();
+    } catch (error) {
+        console.error(error);
+    }
 }
 
 export const getHeroes = async () => {
-    if (isTokenInVaild()) {
-        await getAccessToken();
-    }
-
-    const response = await fetch(`${apiUrl}/cards?locale=en_US&type=hero&pageSize=1000&sort=name&order=desc&access_token=${accessToken}`, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            'Authorization': 'Bearer ' + accessToken
+    try {
+        if (isTokenInVaild()) {
+            await getAccessToken();
         }
-    })
 
-    return await response.json();
+        const response = await fetch(`${apiUrl}/cards?locale=en_US&type=hero&pageSize=1000&sort=name&order=desc&access_token=${accessToken}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'Authorization': 'Bearer ' + accessToken
+            }
+        })
+
+        return await response.json();
+    } catch (error) {
+        console.error(error);
+    }
 }
 
 
 export const getDeck = async (deckCode) => {
-    if (isTokenInVaild()) {
-        await getAccessToken();
-    }
-
-    const response = await fetch(`${apiUrl}/deck/${deckCode}?locale=en_US&type=hero&pageSize=1000&sort=name&order=desc&access_token=${accessToken}`, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            'Authorization': 'Bearer ' + accessToken
+    try {
+        if (isTokenInVaild()) {
+            await getAccessToken();
         }
-    })
 
-    return await response.json();
+        const response = await fetch(`${apiUrl}/deck/${deckCode}?locale=en_US&type=hero&pageSize=1000&sort=name&order=desc&access_token=${accessToken}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'Authorization': 'Bearer ' + accessToken
+            }
+        })
+
+        return await response.json();
+    } catch (error) {
+        console.error(error);
+    }
 }

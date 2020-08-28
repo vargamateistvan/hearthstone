@@ -1,13 +1,25 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { ApolloClient, InMemoryCache } from '@apollo/client';
+import { ApolloProvider } from '@apollo/client';
+import * as Sentry from '@sentry/react';
+
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
-import * as Sentry from '@sentry/react';
+const client = new ApolloClient({
+    uri: process.env.REACT_APP_APOLLO_SERVER,
+    cache: new InMemoryCache()
+});
+
 Sentry.init({ dsn: process.env.REACT_APP_SENTRY });
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(
+    <ApolloProvider client={client}>
+        <App />
+    </ApolloProvider>
+    , document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

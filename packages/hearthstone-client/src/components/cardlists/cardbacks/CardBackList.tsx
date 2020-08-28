@@ -1,42 +1,42 @@
 import React from 'react';
-import { CardBack, CardBackCard } from '../../../types/types';
-import { getAllCardBacks } from '../../../utils/getCards';
+import { useQuery, gql } from '@apollo/client';
+import { CardBackCard } from '../../../types/types';
 import { List, Layout } from 'antd';
 
+const CARD_BACKS = gql`
+  query getCardProperties {
+	cardBacks {
+		name
+		image
+	}
+  }
+`;
 
 const CardBackList: React.FC = () => {
-    const [cardBacks, setCardBacks] = React.useState<CardBack | null>(null)
+	const { loading, data } = useQuery(CARD_BACKS);
 
-    const getCardBacks = React.useCallback(async () => {
-        const result = await getAllCardBacks();
-        if (result) setCardBacks(result);
-    }, []);
-
-    React.useEffect(() => {
-        getCardBacks();
-    }, [getCardBacks])
-
-    return (
-        <Layout>
-            {cardBacks ?
-                <div>
-                    <List
-                        grid={{ xs: 1, sm: 2, md: 3, lg: 4 }}
-                        size="large"
-                        dataSource={cardBacks.cardBacks}
-                        renderItem={(cardBack: CardBackCard) => (
-                            <List.Item
-                                key={cardBack.id}
-                            >
-                                <img alt={cardBack.name} src={cardBack.image} />
-                            </List.Item>
-                        )}
-                    />
-                </div>
-                : null
-            }
-        </Layout>
-    )
+	return (
+		<Layout>
+			{data ?
+				<div>
+					<List
+						grid={{ xs: 1, sm: 2, md: 3, lg: 4 }}
+						size="large"
+						dataSource={data.cardBacks}
+						loading={loading}
+						renderItem={(cardBack: CardBackCard) => (
+							<List.Item
+								key={cardBack.id}
+							>
+								<img alt={cardBack.name} src={cardBack.image} />
+							</List.Item>
+						)}
+					/>
+				</div>
+				: null
+			}
+		</Layout>
+	)
 }
 
 export default CardBackList;

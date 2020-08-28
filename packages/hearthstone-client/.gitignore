@@ -82,3 +82,8 @@ typings/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+src/data/classes.json
+src/data/rarities.json
+src/data/sets.json
+src/data/types.json
+src/data/card_backs.json
