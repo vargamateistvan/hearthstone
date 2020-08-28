@@ -4,7 +4,7 @@ import { Input, Select, Typography, Row, Col, Switch, Layout, Button } from 'ant
 import { CloseOutlined } from '@ant-design/icons';
 
 import { getCard } from '../../../utils/getCards';
-import { ListConfig, CardSet, CardClass, CardRarity, CardType } from '../../../types/types';
+import { CardSet, CardClass, CardRarity, CardType } from '../../../types/types';
 
 const { Search } = Input;
 const { Option } = Select;
@@ -43,7 +43,7 @@ const StandardCardListFilters: React.FC<StandardCardListFiltersProps> = ({ setLi
     const getCardByText = React.useCallback(async (params) => {
         const result = await getCard(params);
         if (result) setCards(result);
-    }, []);
+    }, [setCards]);
 
     const onSortSelectChange = (order: string) => {
         setListConfig(prevState => ({

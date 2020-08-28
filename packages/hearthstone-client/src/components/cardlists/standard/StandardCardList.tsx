@@ -30,7 +30,7 @@ const StandardCardList: React.FC = () => {
 
     React.useEffect(() => {
         getCards(listConfig);
-    }, [listConfig])
+    }, [getCards, listConfig])
 
     const onPaginationChange = (page: number, pageSize: number = 16) => {
         setListConfig(prevState => ({

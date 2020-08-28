@@ -34,7 +34,8 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "heroku-postbuild": "npm run build",
-    "generate-gql-types": "graphql-codegen"
+    "generate-gql-types": "graphql-codegen",
+    "server": "node src/server.js"
   },
   "eslintConfig": {
     "extends": "react-app"
