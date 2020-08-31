@@ -1,8 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom';
-import { Layout, Menu, Tabs } from 'antd';
+import { Layout, Menu } from 'antd';
 
-import smallLogo from './images/small_logo.png';
+// import smallLogo from './images/small_logo.png';
 import './App.css';
 
 import { getAccessToken } from './utils/getCards';
@@ -13,13 +13,11 @@ import DeckBuilder from './components/deckBuilder/DeckBuilder';
 import DeckReader from './components/deckReader/DeckReader';
 import theme from './theme';
 
-const { TabPane } = Tabs;
-const { Header, Content, Footer, Sider } = Layout;
+const { Header, Content, Footer } = Layout;
 const { SubMenu } = Menu;
 
 const App: React.FC = () => {
 	const [hasToken, setHasToken] = React.useState<boolean>(false);
-	const [collapse, setCollapse] = React.useState<boolean>(false);
 	const getToken = async () => {
 		await getAccessToken();
 		setHasToken(true);
@@ -28,10 +26,6 @@ const App: React.FC = () => {
 	React.useEffect(() => {
 		getToken();
 	}, []);
-
-	const onCollapse = collapsed => {
-		setCollapse(collapsed);
-	};
 
 	return (
 		hasToken ?
