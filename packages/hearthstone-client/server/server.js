@@ -27,6 +27,7 @@ getToken().then(() => {
 });
 
 const refreshMetaDatas = cron.schedule('* 6 * * *', () => {
+    console.log('Cards refreshed', new Date());
     getMetaData.getCardSets();
     getMetaData.getCardClasses();
     getMetaData.getCardRarities();
