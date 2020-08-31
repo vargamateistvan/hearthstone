@@ -4,6 +4,7 @@ import { HeartStoneCard } from '../../../types/types';
 import { getAllCards } from '../../../utils/getCards';
 import HeroesList from './HeroesList';
 import TierCardList from './TierCardList';
+import theme from '../../../theme';
 
 const pageConfig = {
     pageNumber: 1,
@@ -46,7 +47,7 @@ const BattlegroundCardList: React.FC = () => {
     }
 
     return (
-        <Layout>
+        <Layout style={{ backgroundColor: theme.lightBrown, color: theme.primary }}>
             <HeroesList
                 heroes={battlegroundsHeroes}
             ></HeroesList>

@@ -2,6 +2,7 @@ import React from 'react';
 import { List, Layout, Divider, Typography } from 'antd';
 import { CardClass, HeartStoneCard } from '../../types/types';
 import { getClasses, getHeroes } from '../../utils/getCards';
+import theme from '../../theme';
 
 const { Title } = Typography;
 
@@ -34,7 +35,7 @@ const CardClassSelector: React.FC<CardSelectorProps> = ({ setSelectedClass }) =>
     }
 
     return (
-        <Layout>
+        <Layout style={{ backgroundColor: theme.lightBrown, color: theme.primary }}>
             {heroes ?
                 <div>
                     {cardClasses.map((cardClass: CardClass) => {

@@ -2,6 +2,7 @@ import React from 'react';
 import { Divider, List, Typography } from 'antd';
 import { HeartStoneCard } from '../../../types/types';
 import HeartStoneCardItem from '../HeartstoneCard';
+import theme from '../../../theme';
 
 const { Title } = Typography;
 
@@ -14,7 +15,7 @@ const TierCardList: React.FC<TierCardListProps> = ({ cards, tier }) => {
     return (
         <div>
             <Divider orientation="left" plain>
-                <Title>
+                <Title style={{ color: theme.primary }}>
                     TIER {tier} Cards
                 </Title>
             </Divider>

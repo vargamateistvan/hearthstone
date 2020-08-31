@@ -1,5 +1,6 @@
 import React from 'react';
 import { Layout, Divider, Typography, Button, Row, Col } from 'antd';
+import theme from '../../theme';
 
 const { Title } = Typography;
 
@@ -9,7 +10,7 @@ interface DeckTypeSelectorProps {
 
 const DeckTypeSelector: React.FC<DeckTypeSelectorProps> = ({ setSelectedType }) => {
     return (
-        <Layout>
+        <Layout style={{ backgroundColor: theme.lightBrown, color: theme.primary }}>
             <Divider orientation="left" plain>
                 <Title>Select deck type</Title>
             </Divider>

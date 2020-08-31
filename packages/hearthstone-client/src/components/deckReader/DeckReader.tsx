@@ -3,6 +3,7 @@ import { Layout, Input, List, Divider, Typography } from 'antd';
 import { HeartStoneCard, Deck } from '../../types/types';
 import { getDeck } from '../../utils/getCards';
 import HeartStoneCardItem from '../cardlists/HeartstoneCard';
+import theme from '../../theme';
 
 const { Search } = Input;
 const { Title } = Typography;
@@ -20,7 +21,7 @@ const DeckReader: React.FC = () => {
     }
 
     return (
-        <Layout>
+        <Layout style={{ backgroundColor: theme.lightBrown, color: theme.primary }}>
             <Search
                 placeholder="Enter a card name"
                 onSearch={onSearch}

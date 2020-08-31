@@ -2,6 +2,7 @@ import React from 'react';
 import { useQuery, gql } from '@apollo/client';
 import { CardBackCard } from '../../../types/types';
 import { List, Layout } from 'antd';
+import theme from '../../../theme';
 
 const CARD_BACKS = gql`
   query getCardProperties {
@@ -16,7 +17,7 @@ const CardBackList: React.FC = () => {
 	const { loading, data } = useQuery(CARD_BACKS);
 
 	return (
-		<Layout>
+		<Layout style={{ backgroundColor: theme.lightBrown, color: theme.primary }}>
 			{data ?
 				<div>
 					<List

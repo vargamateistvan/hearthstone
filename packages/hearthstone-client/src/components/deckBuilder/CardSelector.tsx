@@ -3,6 +3,7 @@ import { Layout, List } from 'antd';
 import { CardClass, Cards, ListConfig, HeartStoneCard } from '../../types/types';
 import { getAllCards } from '../../utils/getCards';
 import HeartStoneCardItem from '../cardlists/HeartstoneCard';
+import theme from '../../theme';
 
 const pageConfig = {
     pageSize: 1000,
@@ -38,7 +39,7 @@ const CardSelector: React.FC<CardSelectorProps> = ({ selectedType, selectedClass
     }, [getCards, listConfig, selectedType, selectedClass])
 
     return (
-        <Layout>
+        <Layout style={{ backgroundColor: theme.lightBrown, color: theme.primary }}>
             {cards ?
                 <List
                     grid={{ xs: 1, sm: 2, md: 3, lg: 4 }}

@@ -5,6 +5,7 @@ import { CloseOutlined } from '@ant-design/icons';
 
 import { getCard } from '../../../utils/getCards';
 import { CardSet, CardClass, CardRarity, CardType } from '../../../types/types';
+import theme from '../../../theme';
 
 const { Search } = Input;
 const { Option } = Select;
@@ -115,7 +116,7 @@ const StandardCardListFilters: React.FC<StandardCardListFiltersProps> = ({ setLi
     }
 
     return (
-        <Layout>
+        <Layout style={{ backgroundColor: theme.lightBrown, color: theme.primary }}>
             {data ?
                 <div>
                     <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>

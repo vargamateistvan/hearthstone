@@ -2,6 +2,7 @@ import React from 'react';
 import { Divider, List, Typography } from 'antd';
 import { HeartStoneCard } from '../../../types/types';
 import HeartStoneCardItem from '../HeartstoneCard';
+import theme from '../../../theme';
 
 const { Title } = Typography;
 
@@ -13,7 +14,7 @@ const HeroesList: React.FC<HeroesListProps> = ({ heroes }) => {
     return (
         <div>
             <Divider orientation="left" plain>
-                <Title>
+                <Title style={{ color: theme.primary }}>
                     Heroes
                 </Title>
             </Divider>

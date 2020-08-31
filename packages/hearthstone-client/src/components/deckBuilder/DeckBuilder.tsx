@@ -4,6 +4,7 @@ import { CardClass, HeartStoneCard } from '../../types/types';
 import CardClassSelector from './CardClassSelector';
 import DeckTypeSelector from './DeckTypeSelector';
 import CardSelector from './CardSelector';
+import theme from '../../theme';
 
 const { Step } = Steps;
 
@@ -41,7 +42,7 @@ const DeckBuilder: React.FC = () => {
     }, [selectedType, selectedClass, currentStep])
 
     return (
-        <Layout>
+        <Layout style={{ backgroundColor: theme.lightBrown, color: theme.primary }}>
             <Steps current={currentStep}>
                 {steps.map(item => (
                     <Step key={item.title} title={item.title} />

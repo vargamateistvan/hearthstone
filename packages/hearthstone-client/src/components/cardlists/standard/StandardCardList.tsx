@@ -5,6 +5,7 @@ import { getAllCards } from '../../../utils/getCards';
 import { Cards, ListConfig, HeartStoneCard } from '../../../types/types';
 import HeartStoneCardItem from '../HeartstoneCard';
 import StandardCardListFilters from './StandardCardListFilters';
+import theme from '../../../theme';
 
 const StandardCardList: React.FC = () => {
     const [listConfig, setListConfig] = React.useState<ListConfig>({
@@ -41,7 +42,7 @@ const StandardCardList: React.FC = () => {
     }
 
     return (
-        <Layout>
+        <Layout style={{ backgroundColor: theme.lightBrown, color: theme.primary }}>
             {cards ?
                 <div>
                     <StandardCardListFilters
@@ -50,7 +51,7 @@ const StandardCardList: React.FC = () => {
                         setShowGoldsOnly={setShowGoldsOnly}
                     ></StandardCardListFilters>
                     <List
-                        grid={{ xs: 1, sm: 2, md: 3, lg: 4 }}
+                        grid={{ xs: 1, sm: 2, md: 4, lg: 6 }}
                         size="large"
                         dataSource={cards.cards}
                         renderItem={(card: HeartStoneCard) => (

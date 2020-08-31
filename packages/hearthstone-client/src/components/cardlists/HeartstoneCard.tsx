@@ -24,6 +24,7 @@ const HeartStoneCardItem: React.FC<HeartStoneCardProps> = ({ card, showGoldsOnly
                         <img alt={card.name} src={showGoldsOnly && card.imageGold ? card.battlegrounds.imageGold : card.battlegrounds.image} />
                 }
                 onClick={() => setShowCard(true)}
+                bordered={false}
             >
             </Card>
 
