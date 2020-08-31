@@ -21,7 +21,7 @@ const CardBackList: React.FC = () => {
 			{data ?
 				<div>
 					<List
-						grid={{ xs: 1, sm: 2, md: 3, lg: 4 }}
+						grid={{ xs: 1, sm: 2, md: 4, lg: 6 }}
 						size="large"
 						dataSource={data.cardBacks}
 						loading={loading}
