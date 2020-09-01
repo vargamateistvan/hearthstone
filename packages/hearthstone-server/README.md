@@ -23,7 +23,9 @@ In the project directory, you can run:
 npm run server
 ```
 
-### Run with docker
+Server running on localhost:4000
+
+## Run with docker
 
 Build docker images
 
