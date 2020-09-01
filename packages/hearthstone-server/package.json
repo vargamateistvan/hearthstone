@@ -1,0 +1,33 @@
+{
+  "name": "hearthstone-server",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Heartstone server",
+  "main": "server.js",
+  "dependencies": {
+    "apollo-server": "^2.17.0",
+    "base-64": "^0.1.0",
+    "dotenv": "^8.2.0",
+    "graphql": "^15.3.0",
+    "node-cron": "^2.0.3",
+    "node-fetch": "^2.6.0",
+    "nodemon": "^2.0.4"
+  },
+  "devDependencies": {
+    "standard": "^14.3.4"
+  },
+  "scripts": {
+    "generate-gql-types": "graphql-codegen",
+    "server": "nodemon server.js --ignore 'data/*'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vargamateistvan/hearthstone-server.git"
+  },
+  "author": "Varga Máté István",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vargamateistvan/hearthstone-server/issues"
+  },
+  "homepage": "https://github.com/vargamateistvan/hearthstone-server#readme"
+}
