@@ -1,6 +1,6 @@
 FROM node:12
 
-WORKDIR /usr/Documents/hearthstone-server
+WORKDIR /usr/Documents/hearthstone
 
 COPY package*.json ./
 
