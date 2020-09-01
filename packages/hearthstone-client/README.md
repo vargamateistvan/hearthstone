@@ -25,6 +25,8 @@ In the project directory, you can run:
 npm run client
 ```
 
+Client running on localhost:4000
+
 ### Run with docker
 
 Build docker images
