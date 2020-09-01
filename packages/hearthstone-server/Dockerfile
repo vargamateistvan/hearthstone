@@ -1,5 +1,7 @@
 FROM node:12
 
+RUN npm install -g nodemon
+
 WORKDIR /usr/Documents/hearthstone-server
 
 COPY package*.json ./
@@ -10,4 +12,4 @@ COPY . .
 
 EXPOSE 8080
 
-CMD [ "node", "server.js" ]
+CMD [ "npm", "run", "server" ]

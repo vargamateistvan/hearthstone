@@ -22,3 +22,17 @@ In the project directory, you can run:
 ```
 npm run server
 ```
+
+### Run with docker
+
+Build docker images
+
+```
+docker build -t <your_dockerhub_username>/hearthstone-server .  
+```
+
+Run docker image
+
+```
+docker run -t <your_dockerhub_username>/hearthstone-server
+```
