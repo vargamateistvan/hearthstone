@@ -1,4 +1,4 @@
-## Hearthstone Card list
+## Innkeepers - Client
 
 This app is works with Hearthstone Game Data API
 https://develop.battle.net/documentation/hearthstone/game-data-apis
@@ -15,10 +15,12 @@ Get the credentials from here: https://develop.battle.net/access
 ```
 REACT_APP_BNET_ID = Client ID
 REACT_APP_BNET_SECRET = Client Secret
+REACT_APP_APOLLO_SERVER = Server location (http://localhost:4000/)
+REACT_APP_SENTRY = Sentry url
 ```
 
 In the project directory, you can run:
 
 ```
-npm start
+npm run client
 ```

@@ -16,9 +16,7 @@
     "@types/react-dom": "16.9.8",
     "antd": "^4.5.2",
     "base-64": "^0.1.0",
-    "dotenv": "^8.2.0",
     "graphql": "^15.3.0",
-    "nodemon": "^2.0.4",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-router-dom": "^5.2.0",
@@ -28,7 +26,6 @@
   },
   "scripts": {
     "client": "react-scripts start",
-    "server": "nodemon server/server.js --ignore 'server/data/*'",
     "start": "serve -s build",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
