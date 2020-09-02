@@ -1,0 +1,13 @@
+version: "3.8"
+services:
+  client:
+    build:
+      context: ../../
+      dockerfile: packages/hearthstone-client/Dockerfile
+    image: node:12-alpine
+    ports:
+      - "3000:3000"
+    volumes:
+      - "/usr/src/app/packages/hearthstone-client/node_modules"
+      - "./:/usr/src/app/packages/hearthstone-client"
+    command: npm run client

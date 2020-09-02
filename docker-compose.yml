@@ -1,0 +1,31 @@
+version: "3.8"
+services:
+  client:
+    image: node:12-alpine
+    build:
+      context: ./packages/hearthstone-client
+      dockerfile: Dockerfile
+    command: npm run client
+    volumes:
+      - ./packages/hearthstone-client:/packages/hearthstone-client
+      - node_modules:/packages/hearthstone-client/node_modules
+    working_dir: /packages/hearthstone-client
+    ports:
+      - "3000:3000"
+    depends_on:
+      - server
+  server:
+    image: node:12-alpine
+    build:
+      context: ./packages/hearthstone-server
+      dockerfile: Dockerfile
+    command: npm run server
+    volumes:
+      - ./packages/hearthstone-server:/packages/hearthstone-server
+      - node_modules:/packages/hearthstone-server/node_modules
+    working_dir: /packages/hearthstone-server
+    ports:
+      - 3001:3001
+
+volumes:
+  node_modules:

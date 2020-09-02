@@ -1,15 +1,15 @@
-FROM node:12
+FROM node:12-alpine
 
 RUN npm install -g nodemon
 
-WORKDIR /usr/Documents/hearthstone-server
-
-COPY package*.json ./
+WORKDIR /usr/src/app/packages/hearthstone-server
 
 RUN npm install
 
+COPY package*.json ./
+
 COPY . .
 
-EXPOSE 4000
+EXPOSE 3001
 
 CMD [ "npm", "run", "server" ]

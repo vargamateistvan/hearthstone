@@ -1,10 +1,10 @@
-FROM node:12
+FROM node:12-alpine
 
-WORKDIR /usr/Documents/hearthstone
-
-COPY package*.json ./
+WORKDIR /usr/src/app/packages/hearthstone-client
 
 RUN npm install
+
+COPY package*.json ./
 
 COPY . .
 

@@ -24,6 +24,9 @@
     "serve": "^11.3.2",
     "typescript": "3.5.3"
   },
+  "devDependencies": {
+    "standard": "^14.3.4"
+  },
   "scripts": {
     "client": "react-scripts start",
     "start": "serve -s build",
@@ -32,6 +35,16 @@
     "eject": "react-scripts eject",
     "heroku-postbuild": "npm run build"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vargamateistvan/hearthstone-client.git"
+  },
+  "author": "Varga Máté István",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vargamateistvan/hearthstone-server/issues"
+  },
+  "homepage": "https://github.com/vargamateistvan/hearthstone-server#readme",
   "eslintConfig": {
     "extends": "react-app"
   },
@@ -46,8 +59,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "standard": "^14.3.4"
   }
 }
