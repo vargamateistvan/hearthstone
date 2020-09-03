@@ -13,7 +13,7 @@ services:
       - node_modules:/packages/hearthstone-client/node_modules
     working_dir: /usr/src/app/packages/hearthstone-client
     ports:
-      - "3000:3000"
+      - 3000:3000
     depends_on:
       - server
   server:
