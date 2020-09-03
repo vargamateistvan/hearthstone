@@ -13,5 +13,8 @@ client-logs:
 logs:
 	docker-compose logs -f
 
+down:
+	docker-compose down --remove-orphans
+
 restart: 
 	down up
