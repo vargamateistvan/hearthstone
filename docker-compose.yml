@@ -14,6 +14,7 @@ services:
     working_dir: /usr/src/app/packages/hearthstone-client
     ports:
       - 3000:3000
+    stdin_open: true
     depends_on:
       - server
   server:
@@ -29,7 +30,7 @@ services:
       - node_modules:/packages/hearthstone-server/node_modules
     working_dir: /usr/src/app/packages/hearthstone-server
     ports:
-      - 3001:3001
+      - 4000:4000
 
 volumes:
   node_modules:

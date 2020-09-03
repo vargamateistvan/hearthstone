@@ -1,8 +1,14 @@
 build:
-	docker-compose up --build
+	docker-compose build
 
 up:
 	docker-compose up -d client server
+
+down:
+	docker-compose down --remove-orphans
+
+restart: 
+	down up
 
 server-logs:
 	docker-compose logs -f server
@@ -12,12 +18,6 @@ client-logs:
 
 logs:
 	docker-compose logs -f
-
-down:
-	docker-compose down --remove-orphans
-
-restart: 
-	down up
 
 install:
 	npm run bootstrap
