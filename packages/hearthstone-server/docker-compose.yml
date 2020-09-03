@@ -8,6 +8,9 @@ services:
     ports:
       - "3001:3001"
     volumes:
-      - "/usr/src/app/packages/hearthstone-server/node_modules"
-      - "./:/usr/src/app/packages/hearthstone-server"
+      - ./packages/hearthstone-server:/packages/hearthstone-server
+      - node_modules:/packages/hearthstone-server/node_modules
     command: npm run server
+
+volumes:
+  node_modules:
