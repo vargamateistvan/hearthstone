@@ -18,3 +18,6 @@ down:
 
 restart: 
 	down up
+
+install:
+	npm run bootstrap

@@ -5,6 +5,6 @@
     "lerna": "^3.22.1"
   },
   "scripts": {
-    "start": "docker-compose up"
+    "bootstrap": "lerna exec npm install"
   }
 }
