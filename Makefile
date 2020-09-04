@@ -10,6 +10,12 @@ down:
 restart: 
 	down up
 
+restart-client: 
+	docker-compose restart client
+
+restart-server: 
+	docker-compose restart server
+
 server-logs:
 	docker-compose logs -f server
 

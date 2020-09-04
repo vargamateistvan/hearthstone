@@ -12,31 +12,14 @@ REACT_APP_BNET_ID = Client ID
 REACT_APP_BNET_SECRET = Client Secret
 REACT_APP_APOLLO_SERVER = Server location (http://localhost:4000/)
 REACT_APP_SENTRY = Sentry url
+NODE_ENV = "development"
+PUBLIC_URL = http://localhost:3000
 ```
 
-Install lerna globally
-```
-npm i lerna -g
-```
+## Install docker compose
 
-Install dependencies
-```
-make install
-```
+https://docs.docker.com/compose/install/
 
-Start server
-```
-npm run server
-```
-
-Server running on http://localhost:4000
-
-Start client
-```
-npm run client
-```
-
-Client running on http://localhost:3000
 
 ## Run with docker
 
