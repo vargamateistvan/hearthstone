@@ -4,8 +4,6 @@ const fs = require('fs');
 const AccessToken = require('./accessToken');
 const apiUrl = `https://us.api.blizzard.com/hearthstone`;
 
-const dataLocation = fs.existsSync('./data') ? './data' : './server/data';
-
 const getAllCardBacks = async () => {
     try {
         await AccessToken.checkToken();

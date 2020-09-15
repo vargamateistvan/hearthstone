@@ -132,58 +132,66 @@ const StandardCardListFilters: React.FC<StandardCardListFiltersProps> = ({ setLi
                         </Col>
                     </Row>
                     <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
-                        <Col>
-                            <Select
-                                defaultValue="Select a card set"
-                                onChange={onSelectChange}
-                                style={{ width: '250px' }}
-                            >
-                                {data.sets.map((set: CardSet, index: number) => {
-                                    return (
-                                        <Option value={set.slug} key={index + 1}>{set.name}</Option>
-                                    )
-                                })}
-                            </Select>
-                        </Col>
-                        <Col>
-                            <Select
-                                defaultValue="Select a card class"
-                                onChange={onSelectChange}
-                                style={{ width: '250px' }}
-                            >
-                                {data.classes.map((cardClass: CardClass, index: number) => {
-                                    return (
-                                        <Option value={cardClass.slug} key={index} >{cardClass.name}</Option>
-                                    )
-                                })}
-                            </Select>
-                        </Col>
-                        <Col>
-                            <Select
-                                defaultValue="Select a card rarity"
-                                onChange={onSelectChange}
-                                style={{ width: '250px' }}
-                            >
-                                {data.rarities.map((rarity: CardRarity, index: number) => {
-                                    return (
-                                        <Option value={rarity.slug} key={index} >{rarity.name}</Option>
-                                    )
-                                })}
-                            </Select>
-                        </Col>
-                        <Col>
-                            <Select
-                                defaultValue="Select a card type"
-                                onChange={onSelectChange}
-                                style={{ width: '250px' }}
-                            >
-                                {data.cardTypes.map((type: CardType, index: number) => {
-                                    return (
-                                        <Option value={type.slug} key={index} >{type.name}</Option>
-                                    )
-                                })}
-                            </Select>
-                        </Col>
+                        {data.sets ?
+                            <Col>
+                                <Select
+                                    defaultValue="Select a card set"
+                                    onChange={onSelectChange}
+                                    style={{ width: '250px' }}
+                                >
+                                    {data.sets.map((set: CardSet, index: number) => {
+                                        return (
+                                            <Option value={set.slug} key={index + 1}>{set.name}</Option>
+                                        )
+                                    })}
+                                </Select>
+                            </Col>
+                            : null}
+                        {data.classes ?
+                            <Col>
+                                <Select
+                                    defaultValue="Select a card class"
+                                    onChange={onSelectChange}
+                                    style={{ width: '250px' }}
+                                >
+                                    {data.classes.map((cardClass: CardClass, index: number) => {
+                                        return (
+                                            <Option value={cardClass.slug} key={index} >{cardClass.name}</Option>
+                                        )
+                                    })}
+                                </Select>
+                            </Col>
+                            : null}
+                        {data.rarities ?
+                            <Col>
+                                <Select
+                                    defaultValue="Select a card rarity"
+                                    onChange={onSelectChange}
+                                    style={{ width: '250px' }}
+                                >
+                                    {data.rarities.map((rarity: CardRarity, index: number) => {
+                                        return (
+                                            <Option value={rarity.slug} key={index} >{rarity.name}</Option>
+                                        )
+                                    })}
+                                </Select>
+                            </Col>
+                            : null}
+                        {data.cardTypes ?
+                            <Col>
+                                <Select
+                                    defaultValue="Select a card type"
+                                    onChange={onSelectChange}
+                                    style={{ width: '250px' }}
+                                >
+                                    {data.cardTypes.map((type: CardType, index: number) => {
+                                        return (
+                                            <Option value={type.slug} key={index} >{type.name}</Option>
+                                        )
+                                    })}
+                                </Select>
+                            </Col>
+                            : null}
                         <Col>
                             <Select
                                 defaultValue="asc"

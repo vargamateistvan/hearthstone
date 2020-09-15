@@ -5,8 +5,6 @@ require('dotenv').config({
 });
 
 const metadataCronJobs = require('./src/cron-jobs/metadatas');
-const typeDefs = require('./src/types/typeDefs');
-const resolvers = require('./src/types/resolvers');
 
 const AccessToken = require('./src/utils/accessToken');
 const getMetaData = require('./src/utils/getMetaDatas');
@@ -26,6 +24,9 @@ getToken().then(async () => {
     await getMetaData.getCardTypes();
     await getAllCardBacks();
 }).then(() => {
+    const typeDefs = require('./src/types/typeDefs');
+    const resolvers = require('./src/types/resolvers');
+
     const server = new ApolloServer({ typeDefs, resolvers });
 
     server.listen().then(({ url }) => {
